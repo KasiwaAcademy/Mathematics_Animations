@@ -41,9 +41,37 @@ class CubicGraph(Scene):
         self.play(statement_1.animate.scale(1.1))
         self.wait(2)
 
+        # Complete the tables of values
+        sub_title_2 = Tex(r"Complete the tables of values:", color=YELLOW).to_edge(DOWN)
+        table_group_1 = Group(
+                    MathTex(r"y = x^3 + 3x^2 + x - 2"),
+                    MathTable(
+                        [["-3", "-2", "-1", "0", "1", "2", "3"],
+                         ["", "", "", "", "", "", ""]],
+                        row_labels=[MathTex("x"), MathTex("y")],
+                        include_outer_lines=True,
+                        line_config={"stroke_width":1} 
+                        ).scale(0.5)
+                ).arrange(DOWN).scale(0.75).move_to([-4, 1, 0]) 
+        table_group_2 = Group(
+                    MathTex(r"y = 2x + 1"),
+                    MathTable(
+                        [["-3", "-2", "-1", "0", "1", "2", "3"],
+                         ["", "", "", "", "", "", ""]],
+                        row_labels=[MathTex("x"), MathTex("y")],
+                        include_outer_lines=True,
+                        line_config={"stroke_width":1} 
+                        ).scale(0.5)
+                ).arrange(DOWN).scale(0.75).move_to([-4, -1, 0])
+        self.play(Write(sub_title_2))
+        self.wait()
+        self.play(FadeOut(statement_1, sub_title_1, eq_group_1, shift=UP),
+                  sub_title_2.animate.to_edge(UP).scale(1.5).set_color(YELLOW_B),
+                  FadeIn(table_group_1, table_group_2))
+        self.wait(5)
         #Outro
         final_text = Tex("Thank you for watching!", color=YELLOW_B)
-        self.play(Write(final_text), FadeOut(statement_1, sub_title_1, eq_group_1, shift=RIGHT))
+        self.play(Write(final_text), FadeOut(table_group_1, sub_title_2, shift=UP))        
         self.wait()
         self.play(logo_corner.animate.move_to(ORIGIN).scale(3), 
                     final_text.animate.to_edge(DOWN).set_color(WHITE).scale(1.3))
