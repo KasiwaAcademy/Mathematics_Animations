@@ -1,5 +1,6 @@
 # Main Py
 from manim import *
+from numpy import array
 
 config.pixel_width = 1920
 config.pixel_height = 1080
@@ -63,15 +64,36 @@ class CubicGraph(Scene):
                         line_config={"stroke_width":1} 
                         ).scale(0.5)
                 ).arrange(DOWN).scale(0.75).move_to([-4, -1, 0])
+
+        #================y values for y = x³ + 3x² + x - 2 ===========================#
+        s_1 = VGroup(
+            MathTex(r"y = x^3 + 3x^2 + x - 2"),
+            MathTex(r"\Rightarrow f(x) = x^3 + 3x^2 + x - 2"),
+            MathTex(r"\Rightarrow f(-3) = (-3)^3 + 3(-3)^2 + (-3) - 2"),
+            MathTex(r"\Rightarrow f(-3) = -27 + 27 -3 - 2"),
+            MathTex(r"\Rightarrow f(-3) = -5"),
+            MathTex(r"\Rightarrow y = -5")
+                ).arrange(DOWN, aligned_edge=LEFT, buff=0.3).to_edge(RIGHT).scale(0.75)
+        #================y values for y = 2x + 1 ===========================#
+        s_2 = VGroup(
+            MathTex(r"y = 2x + 1"),
+            MathTex(r"\Rightarrow f(x) = 2x + 1"),
+            MathTex(r"\Rightarrow f(-3) = 2(-3) + 1"),
+            MathTex(r"\Rightarrow f(-3) = -6 + 1"),
+            MathTex(r"\Rightarrow f(-3) = -5"),
+            MathTex(r"\Rightarrow y = -5")
+                ).arrange(DOWN, aligned_edge=LEFT, buff=0.3).to_edge(RIGHT).scale(0.75)
         self.play(Write(sub_title_2))
         self.wait()
         self.play(FadeOut(statement_1, sub_title_1, eq_group_1, shift=UP),
                   sub_title_2.animate.to_edge(UP).scale(1.5).set_color(YELLOW_B),
-                  FadeIn(table_group_1, table_group_2))
+                  FadeIn(table_group_1, table_group_2, s_1))
+        self.wait(5)
+        self.play(Transform(s_1, s_2))
         self.wait(5)
         #Outro
         final_text = Tex("Thank you for watching!", color=YELLOW_B)
-        self.play(Write(final_text), FadeOut(table_group_1, sub_title_2, shift=UP))        
+        self.play(Write(final_text), FadeOut(table_group_1, table_group_2, s_1, shift=UP))        
         self.wait()
         self.play(logo_corner.animate.move_to(ORIGIN).scale(3), 
                     final_text.animate.to_edge(DOWN).set_color(WHITE).scale(1.3))
