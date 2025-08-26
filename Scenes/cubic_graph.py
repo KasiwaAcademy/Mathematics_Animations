@@ -1,6 +1,5 @@
 # Main Py
 from manim import *
-from numpy import array
 
 config.pixel_width = 1920
 config.pixel_height = 1080
