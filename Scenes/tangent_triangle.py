@@ -75,11 +75,17 @@ class TangentTriangle(Scene):
         textBM = braceBM.get_tex(r"3 cm", buff=0).scale(0.5).set_fill(opacity=0) 
         brace_group = VGroup(braceAB, braceBC, braceBM, textAB, textBC, textBM)
 
-        ## ==== Right angle mark
-        right_mark = RightAngle(AB, BC, length=0.5, stroke_width=2, quadrant=(-1, 1)) 
+        ## ==== Define Angles
+        right_angle = RightAngle(AB, BC, length=0.5, stroke_width=2, quadrant=(-1, 1))
+        angle_BAC = Angle(AC, AB, radius=1, stroke_width=2, other_angle=True).set_opacity(0)  
+        angle_BAM = Angle(AB, AM, radius=0.9, stroke_width=2).set_opacity(0) 
+        angle_BAM_label = MathTex(r"20.5^\circ").next_to(dot_A, UR, buff=0.75).shift(DOWN*0.75).scale(0.5).set_opacity(0)
+        angle_MAC = Angle(AM, AC, radius=1.1, stroke_width=2).set_opacity(0)  
+        angle_MAC_label = MathTex(r"16^\circ").next_to(dot_A, UR, buff=0.85).shift(DOWN*0.4).scale(0.5).set_opacity(0) 
         
         ## ===== Figure Group
-        figure = VGroup(triangle, dot_label_group, brace_group, right_mark, AM)
+        figure = VGroup(triangle, dot_label_group, brace_group, right_angle, angle_BAC, 
+                        angle_BAM, angle_MAC,angle_BAM_label, angle_MAC_label, AM)
 
         self.play(Write(sub_title_2))
         self.wait()
