@@ -1,5 +1,6 @@
 # Main Py
 from manim import *
+from pathops import op
 
 config.pixel_width = 1920
 config.pixel_height = 1080
@@ -79,7 +80,7 @@ class TangentTriangle(Scene):
         eq_group_1 = VGroup(
             Tex(r"(a) $\angle BAM$"),
             Tex(r"(b) $\angle MAC$")
-        ).arrange(DOWN, buff=0.3, aligned_edge=LEFT).next_to(statement_1, DOWN, buff=0.3)
+        ).arrange(DOWN, buff=0.5, aligned_edge=LEFT).next_to(statement_1, DOWN, buff=0.75)
         self.play(Write(sub_title_1))
         self.wait()
         self.play(FadeOut(title, institution, shift=UP), sub_title_1.animate.to_edge(UP).scale(1.3).set_color(WHITE), 
@@ -112,7 +113,7 @@ class TangentTriangle(Scene):
                 MathTex(r"\Rightarrow \tan^{-1} 0.375 = 20.5^\circ"),
                 MathTex(r"\therefore \angle BAM = 20.5^\circ")
                 ).arrange(DOWN, aligned_edge=LEFT, buff=0.8).to_edge(RIGHT).scale(0.6).shift(DOWN*0.5)
-        question_1_group = VGroup(question_1, solution_group_1)
+        question_1_group = VGroup(question_1, solution_group_1, figure[2][2], figure[2][-1]) 
 
         question_2 = Tex(r"(b) Calculate $\angle MAC$.").move_to([-4, 2, 0]).scale(1)
         solution_group_2 = VGroup(
@@ -120,10 +121,17 @@ class TangentTriangle(Scene):
                 MathTex(r"\Rightarrow \tan \angle BAC = \frac{BC}{AB} = \frac{6}{8} = 0.75"),
                 MathTex(r"\Rightarrow \tan^{-1} 0.75 = 36.5^\circ"),
                 Tex(r"$\angle MAC$ is $\between \angle BAC$ and $\angle BAM$"),
-                MathTex(r"\Rightarrow \angle CAM = \angle BAC - \angle BAM"),
-                MathTex(r"\Rightarrow \angle CAM = 36.5^\circ - 20.5^\circ"),
-                MathTex(r"\therefore \angle CAM = 16^\circ")
+                MathTex(r"\Rightarrow \angle MAC = \angle BAC - \angle BAM"),
+                MathTex(r"\Rightarrow \angle MAC = 36.5^\circ - 20.5^\circ"),
+                MathTex(r"\therefore \angle MAC = 16^\circ")
                 ).arrange(DOWN, aligned_edge=LEFT, buff=0.8).to_edge(RIGHT).scale(0.6).shift(DOWN*0.5)
+        question_2_group = VGroup(question_2, solution_group_2, figure[2][0], figure[2][1])
+
+        sub_title_4 = Tex(r"Final  Solutions:", color=YELLOW_B).scale(1.5).to_edge(UP) 
+        solution_group_3 = VGroup(
+                MathTex(r"\boxed{\angle MAC = 16^\circ}", color=YELLOW_D),
+                MathTex(r"\boxed{\angle BAM = 20.5^\circ}", color=YELLOW_D)
+                ).arrange(DOWN, aligned_edge=LEFT, buff=1.5).to_edge(RIGHT).scale(1)
 
         self.play(Write(sub_title_3))
         self.wait()
@@ -132,47 +140,83 @@ class TangentTriangle(Scene):
                  figure.animate.to_edge(LEFT),
                  Write(question_1))
         self.wait()
-        self.play(Write(solution_group_1[0]))
+        self.play(Write(solution_group_1[0]),
+                  Indicate(figure[0]))
         self.wait()
         self.play(figure[-1].animate.set_opacity(1))
+        self.play(Indicate(figure[-1]))
         self.wait()
         self.play(Write(solution_group_1[1]))
         self.wait()
         self.play(figure[2][2].animate.set_opacity(1), figure[2][-1].animate.set_fill(opacity=1))
+        self.play(Indicate(figure[2][2]))
         self.wait()
         self.play(Write(solution_group_1[2]))
         self.wait()
         self.play(Write(solution_group_1[3]))
         self.wait()
+        self.play(figure[2][0].animate.set_fill(opacity=1),
+                  figure[3][2].animate.set_stroke(opacity=1))
+        self.wait()
         self.play(TransformFromCopy(solution_group_1[3], solution_group_1[4]))
+        self.wait()
+        self.play(Indicate(figure[2][0]),
+                  Indicate(figure[3][2]),
+                  Indicate(figure[2][2]))
         self.wait()
         self.play(TransformFromCopy(solution_group_1[4], solution_group_1[5]))
         self.wait()
-        self.play(TransformFromCopy(solution_group_1[5], solution_group_1[6]))
-        self.wait(3)
+        self.play(TransformFromCopy(solution_group_1[5], solution_group_1[6]),
+                  figure[3][3].animate.set_fill(opacity=1))
+        self.wait()
+        self.play(Circumscribe(solution_group_1[6]),
+                  Indicate(figure[3][3]))
+        self.wait(2) 
         self.play(ShrinkToCenter(question_1_group))
         
         self.play(Write(question_2))
         self.wait()
         self.play(Write(solution_group_2[0]))
         self.wait()
+        self.play(figure[3][1].animate.set_stroke(opacity=1),
+                  figure[2][1].animate.set_fill(opacity=1))
+        self.wait()
         self.play(Write(solution_group_2[1]))
         self.wait()
         self.play(TransformFromCopy(solution_group_2[1], solution_group_2[2]))
         self.wait()
-        self.play(Write(solution_group_2[3]))
+        self.play(Write(solution_group_2[3]),
+                  figure[3][-2].animate.set_stroke(opacity=1))
         self.wait()
         self.play(Write(solution_group_2[4]))
         self.wait()
         self.play(TransformFromCopy(solution_group_2[4], solution_group_2[5]))
         self.wait()
-        self.play(TransformFromCopy(solution_group_2[5], solution_group_2[6]))
-        self.wait(3)
+        self.play(TransformFromCopy(solution_group_2[5], solution_group_2[6]),
+                  figure[3][-1].animate.set_opacity(1),
+                  FadeOut(figure[3][1]))
+        self.wait()
+        self.play(Circumscribe(solution_group_2[6]),
+                 Indicate(figure[3][-1]))
+        self.wait(2) 
+        self.play(ShrinkToCenter(question_2_group))
+
+        self.play(FadeTransform(sub_title_3, sub_title_4), 
+                 Write(solution_group_3))
+        self.wait()
+        self.play(Indicate(solution_group_3[0], color=PURE_BLUE),
+                  Indicate(figure[3][-1], color=PURE_BLUE))
+        self.wait()
+        self.play(Indicate(solution_group_3[1], color=PURE_RED),
+                  Indicate(figure[3][-3], color=PURE_RED))
+        self.wait(2) 
+
         #Outro
         final_text = Tex("Thank you for watching!", color=YELLOW_B)
+        final_solution_group = VGroup(sub_title_4, figure, solution_group_3)
         self.play(
                 Write(final_text),
-                  FadeOut(sub_title_2, figure, solution_group_2, question_2, shift=UP))        
+                  ShrinkToCenter(final_solution_group))        
         self.wait()
         self.play(logo_corner.animate.move_to(ORIGIN).scale(3), 
                     final_text.animate.to_edge(DOWN).set_color(WHITE).scale(1.3))
