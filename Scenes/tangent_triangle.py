@@ -5,6 +5,52 @@ config.pixel_width = 1920
 config.pixel_height = 1080
 config.frame_rate = 30
 config.disable_caching = True
+        
+# Construct a Figure
+# ===== Define coordinates of the points
+def make_figure():
+    A = 2*DOWN + 3*LEFT
+    B = 2*DOWN + 2*RIGHT
+    C = 2*UP + 2*RIGHT
+    M = 2*RIGHT
+
+    # ===== Define the sides of a triangle
+    AB = Line(A, B)
+    AC = Line(A, C)
+    BC = Line(B, C)
+    AM = Line(A, M, stroke_width=2).set_opacity(opacity=0) 
+    triangle = Polygon(A, B, C, stroke_width=2, color=WHITE) 
+
+    # ===== Define the dots and labels
+    dot_A, dot_B, dot_C, dot_M = Dot(A, radius=0.025), Dot(B, radius=0.025), Dot(C, radius=0.025), Dot(M, radius=0.05)
+    labA = MathTex("A").next_to(dot_A, UL, buff=0.12).scale(0.5)
+    labB = MathTex("B").next_to(dot_B, DR, buff=0.12).scale(0.5) 
+    labC = MathTex("C").next_to(dot_C, UR, buff=0.12).scale(0.5) 
+    labM = MathTex("M").next_to(dot_M, UL, buff=0.12).scale(0.5) 
+    dot_label_group = VGroup(dot_A, dot_B, dot_C, dot_M, labA, labB, labC, labM)
+
+    # Length annotations (nice for horizontal/vertical legs)
+    braceAB = BraceBetweenPoints(A, B, direction=DOWN, buff=0.025, color=GRAY).set_fill(opacity=0) 
+    textAB = braceAB.get_tex(r"8 cm", buff=0).scale(0.5)
+    braceBC = BraceBetweenPoints(B, C, direction=RIGHT, color=GRAY).set_fill(opacity=0) 
+    textBC = braceBC.get_tex(r"6 cm", buff=0).scale(0.5)
+    braceBM = BraceBetweenPoints(B, M, direction=RIGHT, buff=0.025, color=GRAY_B).set_fill(opacity=0) 
+    textBM = braceBM.get_tex(r"3 cm", buff=0).scale(0.5).set_fill(opacity=0) 
+    brace_group = VGroup(braceAB, braceBC, braceBM, textAB, textBC, textBM)
+
+    # ==== Define Angles
+    right_angle = RightAngle(AB, BC, length=0.5, stroke_width=2, quadrant=(-1, 1))
+    angle_BAC = Angle(AC, AB, radius=1, stroke_width=2, other_angle=True).set_opacity(0)  
+    angle_BAM = Angle(AB, AM, radius=0.9, stroke_width=2).set_opacity(0) 
+    angle_BAM_label = MathTex(r"20.5^\circ").next_to(dot_A, UR, buff=0.75).shift(DOWN*0.75).scale(0.5).set_opacity(0)
+    angle_MAC = Angle(AM, AC, radius=1.1, stroke_width=2).set_opacity(0)  
+    angle_MAC_label = MathTex(r"16^\circ").next_to(dot_A, UR, buff=0.85).shift(DOWN*0.4).scale(0.5).set_opacity(0) 
+    angle_group = VGroup(right_angle, angle_BAC, angle_BAM, angle_BAM_label, angle_MAC, angle_MAC_label)
+
+    # ===== Figure Group
+    figure = VGroup(triangle, dot_label_group, brace_group, angle_group, AM)
+    return figure
+
 
 class TangentTriangle(Scene):
     def construct(self):
@@ -44,49 +90,7 @@ class TangentTriangle(Scene):
 
         # Draw a sketch of the Triangle
         sub_title_2 = Tex(r"Draw a sketch of the triangle $ABC$.", color=YELLOW).to_edge(DOWN)
-
-        ## ===== Define coordinates of the points
-        A = 2*DOWN + 3*LEFT
-        B = 2*DOWN + 2*RIGHT
-        C = 2*UP + 2*RIGHT
-        M = 2*RIGHT
-
-        ## ===== Define the sides of a triangle
-        AB = Line(A, B)
-        AC = Line(A, C)
-        BC = Line(B, C)
-        AM = Line(A, M, stroke_width=2).set_opacity(opacity=0) 
-        triangle = Polygon(A, B, C, stroke_width=2, color=WHITE) 
-
-        ## ===== Define the dots and labels
-        dot_A, dot_B, dot_C, dot_M = Dot(A, radius=0.025), Dot(B, radius=0.025), Dot(C, radius=0.025), Dot(M, radius=0.05)
-        labA = MathTex("A").next_to(dot_A, UL, buff=0.12).scale(0.5)
-        labB = MathTex("B").next_to(dot_B, DR, buff=0.12).scale(0.5) 
-        labC = MathTex("C").next_to(dot_C, UR, buff=0.12).scale(0.5) 
-        labM = MathTex("M").next_to(dot_M, UL, buff=0.12).scale(0.5) 
-        dot_label_group = VGroup(dot_A, dot_B, dot_C, dot_M, labA, labB, labC, labM)
-
-        ## Length annotations (nice for horizontal/vertical legs)
-        braceAB = BraceBetweenPoints(A, B, direction=DOWN, buff=0.025, color=GRAY).set_fill(opacity=0) 
-        textAB = braceAB.get_tex(r"8 cm", buff=0).scale(0.5)
-        braceBC = BraceBetweenPoints(B, C, direction=RIGHT, color=GRAY).set_fill(opacity=0) 
-        textBC = braceBC.get_tex(r"6 cm", buff=0).scale(0.5)
-        braceBM = BraceBetweenPoints(B, M, direction=RIGHT, buff=0.025, color=GRAY_B).set_fill(opacity=0) 
-        textBM = braceBM.get_tex(r"3 cm", buff=0).scale(0.5).set_fill(opacity=0) 
-        brace_group = VGroup(braceAB, braceBC, braceBM, textAB, textBC, textBM)
-
-        ## ==== Define Angles
-        right_angle = RightAngle(AB, BC, length=0.5, stroke_width=2, quadrant=(-1, 1))
-        angle_BAC = Angle(AC, AB, radius=1, stroke_width=2, other_angle=True).set_opacity(0)  
-        angle_BAM = Angle(AB, AM, radius=0.9, stroke_width=2).set_opacity(0) 
-        angle_BAM_label = MathTex(r"20.5^\circ").next_to(dot_A, UR, buff=0.75).shift(DOWN*0.75).scale(0.5).set_opacity(0)
-        angle_MAC = Angle(AM, AC, radius=1.1, stroke_width=2).set_opacity(0)  
-        angle_MAC_label = MathTex(r"16^\circ").next_to(dot_A, UR, buff=0.85).shift(DOWN*0.4).scale(0.5).set_opacity(0) 
-        
-        ## ===== Figure Group
-        figure = VGroup(triangle, dot_label_group, brace_group, right_angle, angle_BAC, 
-                        angle_BAM, angle_MAC,angle_BAM_label, angle_MAC_label, AM)
-
+        figure = make_figure()
         self.play(Write(sub_title_2))
         self.wait()
         self.play(FadeOut(sub_title_1, statement_1, eq_group_1, shift=UP),
@@ -195,10 +199,13 @@ class Thumbnail(Scene):
             "to Solve Triangles", font="Roboto", weight=BOLD, color=WHITE
         ).scale(1.5).next_to(title, DOWN, buff=0.3)
 
-        # Quadratic Formula
-        formula = MathTex(
-            r"x = \frac{b - k^3}{k^3}", color=WHITE
-        ).scale(1.7).next_to(subtitle, DOWN, buff=1)
+        # Formula
+        # formula = MathTex(r"x = \frac{b - k^3}{k^3}", color=WHITE).scale(1.7).next_to(subtitle, DOWN, buff=1)
 
         # Add everything
-        self.add(title, subtitle, formula)
+        figure = make_figure()
+        figure = figure.shift(DOWN).scale(0.85)
+        line_AM = figure[-1].set_opacity(1) 
+        angle_BAM = figure[3][2].set_opacity(1)
+        angle_MAC = figure[3][4].set_opacity(1)
+        self.add(title, subtitle, figure, line_AM, angle_BAM, angle_MAC)
