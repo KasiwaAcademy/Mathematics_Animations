@@ -31,11 +31,11 @@ def make_figure():
     dot_label_group = VGroup(dot_A, dot_B, dot_C, dot_M, labA, labB, labC, labM)
 
     # Length annotations (nice for horizontal/vertical legs)
-    braceAB = BraceBetweenPoints(A, B, direction=DOWN, buff=0.025, color=GRAY).set_fill(opacity=0) 
+    braceAB = BraceBetweenPoints(A, B, direction=DOWN, buff=0.025).set_fill(opacity=0) 
     textAB = braceAB.get_tex(r"8 cm", buff=0).scale(0.5)
-    braceBC = BraceBetweenPoints(B, C, direction=RIGHT, color=GRAY).set_fill(opacity=0) 
+    braceBC = BraceBetweenPoints(B, C, direction=RIGHT).set_fill(opacity=0) 
     textBC = braceBC.get_tex(r"6 cm", buff=0).scale(0.5)
-    braceBM = BraceBetweenPoints(B, M, direction=RIGHT, buff=0.025, color=GRAY_B).set_fill(opacity=0) 
+    braceBM = BraceBetweenPoints(B, M, direction=RIGHT, buff=0.025).set_fill(opacity=0) 
     textBM = braceBM.get_tex(r"3 cm", buff=0).scale(0.5).set_fill(opacity=0) 
     brace_group = VGroup(braceAB, braceBC, braceBM, textAB, textBC, textBM)
 
@@ -83,7 +83,7 @@ class TangentTriangle(Scene):
         ).arrange(DOWN, buff=0.5, aligned_edge=LEFT).next_to(statement_1, DOWN, buff=0.75)
         self.play(Write(sub_title_1))
         self.wait()
-        self.play(FadeOut(title, institution, shift=UP), sub_title_1.animate.to_edge(UP).scale(1.3).set_color(WHITE), 
+        self.play(FadeOut(title, institution, shift=UP), sub_title_1.animate.to_edge(UP).scale(1.3).set_color(YELLOW_B), 
                   FadeIn(statement_1, eq_group_1, shift=UP))
         self.wait()
         self.play(statement_1.animate.scale(1.1))
@@ -95,7 +95,7 @@ class TangentTriangle(Scene):
         self.play(Write(sub_title_2))
         self.wait()
         self.play(FadeOut(sub_title_1, statement_1, eq_group_1, shift=UP),
-                  sub_title_2.animate.to_edge(UP).scale(1.5).set_color(YELLOW_B),
+                  sub_title_2.animate.to_edge(UP).scale(1.3).set_color(YELLOW_B),
                   FadeIn(figure))
         self.wait(2)
         
@@ -119,7 +119,7 @@ class TangentTriangle(Scene):
         solution_group_2 = VGroup(
                 Tex(r"Using $\triangle ABC$, we can find $\angle BAC$"),
                 MathTex(r"\Rightarrow \tan \angle BAC = \frac{BC}{AB} = \frac{6}{8} = 0.75"),
-                MathTex(r"\Rightarrow \tan^{-1} 0.75 = 36.5^\circ"),
+                MathTex(r"\Rightarrow \tan^{-1} 0.75 =", r" 36.5^\circ").set_color_by_tex(r"36.5^\circ", PURE_RED),
                 Tex(r"$\angle MAC$ is $\between \angle BAC$ and $\angle BAM$"),
                 MathTex(r"\Rightarrow \angle MAC = \angle BAC - \angle BAM"),
                 MathTex(r"\Rightarrow \angle MAC = 36.5^\circ - 20.5^\circ"),
@@ -127,7 +127,7 @@ class TangentTriangle(Scene):
                 ).arrange(DOWN, aligned_edge=LEFT, buff=0.8).to_edge(RIGHT).scale(0.6).shift(DOWN*0.5)
         question_2_group = VGroup(question_2, solution_group_2, figure[2][0], figure[2][1])
 
-        sub_title_4 = Tex(r"Final  Solutions:", color=YELLOW_B).scale(1.5).to_edge(UP) 
+        sub_title_4 = Tex(r"Final  Solutions:", color=YELLOW_B).scale(1.3).to_edge(UP) 
         solution_group_3 = VGroup(
                 MathTex(r"\boxed{\angle MAC = 16^\circ}", color=YELLOW_D),
                 MathTex(r"\boxed{\angle BAM = 20.5^\circ}", color=YELLOW_D)
@@ -136,12 +136,11 @@ class TangentTriangle(Scene):
         self.play(Write(sub_title_3))
         self.wait()
         self.play(FadeOut(sub_title_2, shift=UP),
-                 sub_title_3.animate.to_edge(UP).set_color(YELLOW_B).scale(1.5),
+                 sub_title_3.animate.to_edge(UP).set_color(YELLOW_B).scale(1.3),
                  figure.animate.to_edge(LEFT),
                  Write(question_1))
         self.wait()
-        self.play(Write(solution_group_1[0]),
-                  Indicate(figure[0]))
+        self.play(Write(solution_group_1[0]))
         self.wait()
         self.play(figure[-1].animate.set_opacity(1))
         self.play(Indicate(figure[-1]))
@@ -176,14 +175,16 @@ class TangentTriangle(Scene):
         
         self.play(Write(question_2))
         self.wait()
-        self.play(Write(solution_group_2[0]))
+        self.play(Write(solution_group_2[0]),
+                  Indicate(figure[0]))
         self.wait()
         self.play(figure[3][1].animate.set_stroke(opacity=1),
                   figure[2][1].animate.set_fill(opacity=1))
         self.wait()
         self.play(Write(solution_group_2[1]))
         self.wait()
-        self.play(TransformFromCopy(solution_group_2[1], solution_group_2[2]))
+        self.play(TransformFromCopy(solution_group_2[1], solution_group_2[2]),
+                  figure[3][1].animate.set_color(PURE_RED))
         self.wait()
         self.play(Write(solution_group_2[3]),
                   figure[3][-2].animate.set_stroke(opacity=1))
@@ -202,7 +203,7 @@ class TangentTriangle(Scene):
         self.play(ShrinkToCenter(question_2_group))
 
         self.play(FadeTransform(sub_title_3, sub_title_4), 
-                 Write(solution_group_3))
+                 GrowFromEdge(solution_group_3, RIGHT))
         self.wait()
         self.play(Indicate(solution_group_3[0], color=PURE_BLUE),
                   Indicate(figure[3][-1], color=PURE_BLUE))
