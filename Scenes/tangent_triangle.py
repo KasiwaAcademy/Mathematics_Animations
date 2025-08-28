@@ -1,6 +1,5 @@
 # Main Py
 from manim import *
-from pathops import op
 
 config.pixel_width = 1920
 config.pixel_height = 1080
