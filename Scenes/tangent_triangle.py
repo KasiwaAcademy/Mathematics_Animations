@@ -1,5 +1,7 @@
 # Main Py
 from manim import *
+from manim_voiceover import VoiceoverScene
+from manim_voiceover.services.gtts import GTTSService
 
 config.pixel_width = 1920
 config.pixel_height = 1080
@@ -52,8 +54,11 @@ def make_figure():
     return figure
 
 
-class TangentTriangle(Scene):
+class TangentTriangle(VoiceoverScene):
     def construct(self):
+        # Voiceover Instant
+        self.set_speech_service(GTTSService(lang='en', transcription_model="base"))
+
         # Create a custom Latex template that includes the cancel package
         my_template = TexTemplate()
         my_template.add_to_preamble(r"\usepackage{cancel}")
@@ -67,9 +72,15 @@ class TangentTriangle(Scene):
         # Intro
         title = Tex(r"Using Tangents to Solve Triangles.", color=YELLOW)
         institution = Tex(r"@Kasiwa Academy")
-        self.play(Write(title))
-        self.wait()
-        self.play(title.animate.shift(UP).scale(1.3).set_color(YELLOW_B), FadeIn(institution, shift=UP))
+        text="""
+            Hello! Welcome to yet another lesson where we are demonstrating how we can solve a problem involving triangles using
+            one of the trigonometric ratios called the tangent. Stay with us right here at <bookmark mark="A"/>  Kasiwa Academy as
+            we continue helpingeach other develop mathematical skills.
+             """
+        with self.voiceover(text=text) as tracker:
+            self.play(Write(title), run_time=tracker.time_until_bookmark("A", limit=1))
+            self.wait_until_bookmark("A")
+            self.play(title.animate.shift(UP).scale(1.3).set_color(YELLOW_B), FadeIn(institution, shift=UP))
         self.wait(2)
 
         # Problem Statement
@@ -80,22 +91,32 @@ class TangentTriangle(Scene):
             Tex(r"(a) $\angle BAM$"),
             Tex(r"(b) $\angle MAC$")
         ).arrange(DOWN, buff=0.5, aligned_edge=LEFT).next_to(statement_1, DOWN, buff=0.75)
-        self.play(Write(sub_title_1))
-        self.wait()
-        self.play(FadeOut(title, institution, shift=UP), sub_title_1.animate.to_edge(UP).scale(1.3).set_color(YELLOW_B), 
-                  FadeIn(statement_1, eq_group_1, shift=UP))
-        self.wait()
-        self.play(statement_1.animate.scale(1.1))
+        text_1 = """
+                We begin by introducing the problem. We are given a triangle ABC in which AB is equal to 8 cm, angle B is equal to 90⁰
+                and BC is equal to 6 cm. Point M is located at the middle of line BC. We are asked to find the size of angle BAM and 
+                angle MAC.
+                 """
+        with self.voiceover(text=text_1) as tracker:
+            self.play(Write(sub_title_1))
+            self.wait()
+            self.play(FadeOut(title, institution, shift=UP), sub_title_1.animate.to_edge(UP).scale(1.3).set_color(YELLOW_B), 
+                      FadeIn(statement_1, eq_group_1, shift=UP))
+            self.wait()
+            self.play(statement_1.animate.scale(1.1))
         self.wait(2)
 
         # Draw a sketch of the Triangle
         sub_title_2 = Tex(r"Draw a sketch of the triangle $ABC$.", color=YELLOW).to_edge(DOWN)
         figure = make_figure()
-        self.play(Write(sub_title_2))
-        self.wait()
-        self.play(FadeOut(sub_title_1, statement_1, eq_group_1, shift=UP),
-                  sub_title_2.animate.to_edge(UP).scale(1.3).set_color(YELLOW_B),
-                  FadeIn(figure))
+        text_2 = """
+                Let us draw a sketch of the triangle ABC, showing all the given information.
+                 """
+        with self.voiceover(text=text_2) as tracker:
+            self.play(Write(sub_title_2))
+            self.wait()
+            self.play(FadeOut(sub_title_1, statement_1, eq_group_1, shift=UP),
+                      sub_title_2.animate.to_edge(UP).scale(1.3).set_color(YELLOW_B),
+                      FadeIn(figure))
         self.wait(2)
         
         # Solutions
@@ -131,96 +152,120 @@ class TangentTriangle(Scene):
                 MathTex(r"\boxed{\angle MAC = 16^\circ}", color=YELLOW_D),
                 MathTex(r"\boxed{\angle BAM = 20.5^\circ}", color=YELLOW_D)
                 ).arrange(DOWN, aligned_edge=LEFT, buff=1.5).to_edge(RIGHT).scale(1)
-
-        self.play(Write(sub_title_3))
-        self.wait()
-        self.play(FadeOut(sub_title_2, shift=UP),
-                 sub_title_3.animate.to_edge(UP).set_color(YELLOW_B).scale(1.3),
-                 figure.animate.to_edge(LEFT),
-                 Write(question_1))
-        self.wait()
-        self.play(Write(solution_group_1[0]))
-        self.wait()
-        self.play(figure[-1].animate.set_opacity(1))
-        self.play(Indicate(figure[-1]))
-        self.wait()
-        self.play(Write(solution_group_1[1]))
-        self.wait()
-        self.play(figure[2][2].animate.set_opacity(1), figure[2][-1].animate.set_fill(opacity=1))
-        self.play(Indicate(figure[2][2]))
-        self.wait()
-        self.play(Write(solution_group_1[2]))
-        self.wait()
-        self.play(Write(solution_group_1[3]))
-        self.wait()
-        self.play(figure[2][0].animate.set_fill(opacity=1),
-                  figure[3][2].animate.set_stroke(opacity=1))
-        self.wait()
-        self.play(TransformFromCopy(solution_group_1[3], solution_group_1[4]))
-        self.wait()
-        self.play(Indicate(figure[2][0]),
-                  Indicate(figure[3][2]),
-                  Indicate(figure[2][2]))
-        self.wait()
-        self.play(TransformFromCopy(solution_group_1[4], solution_group_1[5]))
-        self.wait()
-        self.play(TransformFromCopy(solution_group_1[5], solution_group_1[6]),
-                  figure[3][3].animate.set_fill(opacity=1))
-        self.wait()
-        self.play(Circumscribe(solution_group_1[6]),
-                  Indicate(figure[3][3]))
+        text_3 = """
+                In calculating the first question, we are required to join point A to point M. From the newly created triangle ABM,
+                line BM is equal to 3 cm. It is half of line BC as M is the mid-point of BC. Using the tangent ratio, which is simply
+                the ratio of the opposite-side and the adjacent side, we get tangent of angle BAM as the ratio of line BM and line AB.
+                The tangent of angle BAM becomes the ratio of 3 and 8 which simplifies to 0.375. Taking the inverse of the tangent of
+                angle ABM we get 20.5 degrees. Therefore the size of angle BAM is 20.5 degrees.
+                 """
+        with self.voiceover(text=text_3) as tracker:
+            self.play(Write(sub_title_3))
+            self.wait()
+            self.play(FadeOut(sub_title_2, shift=UP),
+                     sub_title_3.animate.to_edge(UP).set_color(YELLOW_B).scale(1.3),
+                     figure.animate.to_edge(LEFT),
+                     Write(question_1))
+            self.wait()
+            self.play(Write(solution_group_1[0]))
+            self.wait()
+            self.play(figure[-1].animate.set_opacity(1))
+            self.play(Indicate(figure[-1]))
+            self.wait()
+            self.play(Write(solution_group_1[1]))
+            self.wait()
+            self.play(figure[2][2].animate.set_opacity(1), figure[2][-1].animate.set_fill(opacity=1))
+            self.play(Indicate(figure[2][2]))
+            self.wait()
+            self.play(Write(solution_group_1[2]))
+            self.wait()
+            self.play(Write(solution_group_1[3]))
+            self.wait()
+            self.play(figure[2][0].animate.set_fill(opacity=1),
+                      figure[3][2].animate.set_stroke(opacity=1))
+            self.wait()
+            self.play(TransformFromCopy(solution_group_1[3], solution_group_1[4]))
+            self.wait()
+            self.play(Indicate(figure[2][0]),
+                      Indicate(figure[3][2]),
+                      Indicate(figure[2][2]))
+            self.wait()
+            self.play(TransformFromCopy(solution_group_1[4], solution_group_1[5]))
+            self.wait()
+            self.play(TransformFromCopy(solution_group_1[5], solution_group_1[6]),
+                      figure[3][3].animate.set_fill(opacity=1))
+            self.wait()
+            self.play(Circumscribe(solution_group_1[6]),
+                      Indicate(figure[3][3]))
         self.wait(2) 
         self.play(ShrinkToCenter(question_1_group))
-        
-        self.play(Write(question_2))
-        self.wait()
-        self.play(Write(solution_group_2[0]),
-                  Indicate(figure[0]))
-        self.wait()
-        self.play(figure[3][1].animate.set_stroke(opacity=1),
-                  figure[2][1].animate.set_fill(opacity=1))
-        self.wait()
-        self.play(Write(solution_group_2[1]))
-        self.wait()
-        self.play(TransformFromCopy(solution_group_2[1], solution_group_2[2]),
-                  figure[3][1].animate.set_color(PURE_RED))
-        self.wait()
-        self.play(Write(solution_group_2[3]),
-                  figure[3][-2].animate.set_stroke(opacity=1))
-        self.wait()
-        self.play(Write(solution_group_2[4]))
-        self.wait()
-        self.play(TransformFromCopy(solution_group_2[4], solution_group_2[5]))
-        self.wait()
-        self.play(TransformFromCopy(solution_group_2[5], solution_group_2[6]),
-                  figure[3][-1].animate.set_opacity(1),
-                  FadeOut(figure[3][1]))
-        self.wait()
-        self.play(Circumscribe(solution_group_2[6]),
-                 Indicate(figure[3][-1]))
+        text_4 = """
+                Let us now solve the second question where we are required to find the size of angle MAC. Using 
+                the big triangle ABC, we can find angle BAC. We use the same tangent ratio that we used for solving
+                the first question and we will get the ratio of line BC and AB with sizes 6 cm and 8 cm respectively,
+                which evaluates to 0.75. Taking the inverse of tangent of angle BAC we find the size of angle BAC to
+                to be 36.5 degrees. The angle that we want to find , angle MAC, is between angle BAC and angle BAM.
+                Which means angle MAC can be found by subtracting angle BAM from angle BAC. If we subtract 20.5 degrees
+                for angle BAM from 36.5 degrees for angle BAC, we get 16 degrees. Therefore, the size of angle MAC is 
+                16 degrees.
+                 """
+        with self.voiceover(text=text_4) as tracker:
+            self.play(Write(question_2))
+            self.wait()
+            self.play(Write(solution_group_2[0]),
+                      Indicate(figure[0]))
+            self.wait()
+            self.play(figure[3][1].animate.set_stroke(opacity=1),
+                      figure[2][1].animate.set_fill(opacity=1))
+            self.wait()
+            self.play(Write(solution_group_2[1]))
+            self.wait()
+            self.play(TransformFromCopy(solution_group_2[1], solution_group_2[2]),
+                      figure[3][1].animate.set_color(PURE_RED))
+            self.wait()
+            self.play(Write(solution_group_2[3]),
+                      figure[3][-2].animate.set_stroke(opacity=1))
+            self.wait()
+            self.play(Write(solution_group_2[4]))
+            self.wait()
+            self.play(TransformFromCopy(solution_group_2[4], solution_group_2[5]))
+            self.wait()
+            self.play(TransformFromCopy(solution_group_2[5], solution_group_2[6]),
+                      figure[3][-1].animate.set_opacity(1),
+                      FadeOut(figure[3][1]))
+            self.wait()
+            self.play(Circumscribe(solution_group_2[6]),
+                     Indicate(figure[3][-1]))
         self.wait(2) 
         self.play(ShrinkToCenter(question_2_group))
-
-        self.play(FadeTransform(sub_title_3, sub_title_4), 
-                 GrowFromEdge(solution_group_3, RIGHT))
-        self.wait()
-        self.play(Indicate(solution_group_3[0], color=PURE_BLUE),
-                  Indicate(figure[3][-1], color=PURE_BLUE))
-        self.wait()
-        self.play(Indicate(solution_group_3[1], color=PURE_RED),
-                  Indicate(figure[3][-3], color=PURE_RED))
+        text_5 = """
+                We have finally manged to find the values of angle MAC which is 16 degrees and the size of angle BAM is 20.5 degrees.
+                 """
+        with self.voiceover(text=text_5) as tracker:
+            self.play(FadeTransform(sub_title_3, sub_title_4), 
+                     GrowFromEdge(solution_group_3, RIGHT))
+            self.wait()
+            self.play(Indicate(solution_group_3[0], color=PURE_BLUE),
+                      Indicate(figure[3][-1], color=PURE_BLUE))
+            self.wait()
+            self.play(Indicate(solution_group_3[1], color=PURE_RED),
+                      Indicate(figure[3][-3], color=PURE_RED))
         self.wait(2) 
 
         #Outro
         final_text = Tex("Thank you for watching!", color=YELLOW_B)
         final_solution_group = VGroup(sub_title_4, figure, solution_group_3)
-        self.play(
-                Write(final_text),
-                  ShrinkToCenter(final_solution_group))        
-        self.wait()
-        self.play(logo_corner.animate.move_to(ORIGIN).scale(3), 
-                    final_text.animate.to_edge(DOWN).set_color(WHITE).scale(1.3))
-        self.wait()
+        text_6 = """
+                Thank you for watching, see you in our next video.
+                 """
+        with self.voiceover(text=text_6) as tracker:
+            self.play(
+                    Write(final_text),
+                      ShrinkToCenter(final_solution_group))        
+            self.wait()
+            self.play(logo_corner.animate.move_to(ORIGIN).scale(3), 
+                        final_text.animate.to_edge(DOWN).set_color(WHITE).scale(1.3))
+            self.wait()
         self.play(FadeOut(final_text, logo_corner))
         self.wait()
 
