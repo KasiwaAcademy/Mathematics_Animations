@@ -135,7 +135,7 @@ class TangentTriangle(VoiceoverScene):
         solution_group_1 = VGroup(
                 Tex(r"Join $A$ to $M$. Using $\triangle ABM$,"),
                 Tex(r"$BM = 3cm$ (midpoint of $BC$)"),
-                Tex(r"Since $\tan \theta = \frac{Opposite}{Adjacent}$"),
+                Tex(r"Since $\tan \theta = \frac{Opposite Side}{Adjacent Side}$"),
                 MathTex(r"\Rightarrow \tan BAM = \frac{BM}{AB}"),
                 MathTex(r"\Rightarrow \tan BAM = \frac{3}{8} = 0.375"),
                 MathTex(r"\Rightarrow \tan^{-1} 0.375 = 20.5^\circ"),
@@ -213,10 +213,10 @@ class TangentTriangle(VoiceoverScene):
         text_4 = """
                 Let us now solve the second question where we are required to find the size of angle M-A-C. Using 
                 the big <bookmark mark="A"/> triangle A-B-C we can find angle B-A-C. We use the same tangent ratio that we used for solving
-                the first question and we will get the <bookmark mark="B"/> ratio of line B-C and A-B with sizes 6 cm and 8 cm respectively
-                which evaluates to 0.75. Taking the inverse of <bookmark mark="C"/> tangent of angle B-A-C we find the size of angle B-A-C to
-                be 36.5 degrees. The angle <bookmark mark="D"/> that we want to find angle M-A-C is between angle B-A-C and angle B-A-M.
-                Which means angle M-A-C <bookmark mark="E"/> can be found by subtracting angle B-A-M from angle B-A-C. If we 
+                the first question. We will get the <bookmark mark="B"/> ratio of line B-C and A-B with sizes 6 cm and 8 cm respectively. 
+                This ratio  evaluates to 0.75. Taking the inverse of <bookmark mark="C"/> tangent of angle B-A-C we find the size of angle
+                B-A-C to be 36.5 degrees. The angle <bookmark mark="D"/> that we want to find angle M-A-C is between angle B-A-C and angle
+                B-A-M. Which means angle M-A-C <bookmark mark="E"/> can be found by subtracting angle B-A-M from angle B-A-C. If we 
                 <bookmark mark="F"/> subtract 20.5 degrees for angle B-A-M from 36.5 degrees for angle B-A-C we get 16 degrees. Therefore 
                 <bookmark mark="G"/> the size of angle M-A-C is 16 degrees.
                  """
