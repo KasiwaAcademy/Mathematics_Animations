@@ -73,9 +73,9 @@ class TangentTriangle(VoiceoverScene):
         title = Tex(r"Using Tangents to Solve Triangles.", color=YELLOW)
         institution = Tex(r"@Kasiwa Academy")
         text="""
-            Hello! Welcome to yet another lesson where we are demonstrating how we can solve a problem involving-triangles using
+            Hello! Welcome to yet another lesson where we are demonstrating how we can solve a problem that involves triangles using
             one of the trigonometric ratios called the tangent. Stay with us right here at <bookmark mark="A"/>  Kasiwa Academy as
-            we continue helpingeach other develop mathematical-skills.
+            we continue helping each other develop skills in Mathematics.
              """
         with self.voiceover(text=text) as tracker:
             self.play(Write(title), run_time=tracker.time_until_bookmark("A", limit=1))
@@ -147,7 +147,7 @@ class TangentTriangle(VoiceoverScene):
                 MathTex(r"\Rightarrow \tan^{-1} 0.75 =", r" 36.5^\circ").set_color_by_tex(r"36.5^\circ", PURE_RED),
                 Tex(r"$\angle MAC$ is $\between \angle BAC$ and $\angle BAM$"),
                 MathTex(r"\Rightarrow \angle MAC = \angle BAC - \angle BAM"),
-                MathTex(r"\Rightarrow \angle MAC = 36.5^\circ - 20.5^\circ"),
+                MathTex(r"\Rightarrow \angle MAC = 36.5^\circ - 20.5^\circ = 16^\circ"),
                 MathTex(r"\therefore \angle MAC = 16^\circ")
                 ).arrange(DOWN, aligned_edge=LEFT, buff=0.8).to_edge(RIGHT).scale(0.6).shift(DOWN*0.5)
         question_2_group = VGroup(question_2, solution_group_2, figure[2][0], figure[2][1])
@@ -174,32 +174,32 @@ class TangentTriangle(VoiceoverScene):
                      sub_title_3.animate.to_edge(UP).set_color(YELLOW_B).scale(1.3),
                      figure.animate.to_edge(LEFT),
                      Write(question_1))
-            self.wait()
-            self.play(Write(solution_group_1[0]))
+            self.wait_until_bookmark("A")
+            self.play(Write(solution_group_1[0]), run_time=tracker.time_until_bookmark("B", limit=1))
             self.wait()
             self.play(figure[-1].animate.set_opacity(1))
             self.play(Indicate(figure[-1]))
-            self.wait()
-            self.play(Write(solution_group_1[1]))
+            self.wait_until_bookmark("B")
+            self.play(Write(solution_group_1[1]), run_time=tracker.time_until_bookmark("C", limit=1))
             self.wait()
             self.play(figure[2][2].animate.set_opacity(1), figure[2][-1].animate.set_fill(opacity=1))
             self.play(Indicate(figure[2][2]))
-            self.wait()
-            self.play(Write(solution_group_1[2]))
-            self.wait()
-            self.play(Write(solution_group_1[3]))
+            self.wait_until_bookmark("C")
+            self.play(Write(solution_group_1[2]), run_time=tracker.time_until_bookmark("D"))
+            self.wait_until_bookmark("D")
+            self.play(Write(solution_group_1[3]), run_time=tracker.time_until_bookmark("E", limit=1))
             self.wait()
             self.play(figure[2][0].animate.set_fill(opacity=1),
                       figure[3][2].animate.set_stroke(opacity=1))
-            self.wait()
-            self.play(TransformFromCopy(solution_group_1[3], solution_group_1[4]))
+            self.wait_until_bookmark("E")
+            self.play(TransformFromCopy(solution_group_1[3], solution_group_1[4]), run_time=tracker.time_until_bookmark("F", limit=1))
             self.wait()
             self.play(Indicate(figure[2][0]),
                       Indicate(figure[3][2]),
                       Indicate(figure[2][2]))
-            self.wait()
-            self.play(TransformFromCopy(solution_group_1[4], solution_group_1[5]))
-            self.wait()
+            self.wait_until_bookmark("F")
+            self.play(TransformFromCopy(solution_group_1[4], solution_group_1[5]), run_time=tracker.time_until_bookmark("G", limit=1))
+            self.wait_until_bookmark("G")
             self.play(TransformFromCopy(solution_group_1[5], solution_group_1[6]),
                       figure[3][3].animate.set_fill(opacity=1))
             self.wait()
@@ -258,7 +258,7 @@ class TangentTriangle(VoiceoverScene):
                       Indicate(figure[3][-1], color=PURE_BLUE), run_time=tracker.time_until_bookmark("B"))
             self.wait_until_bookmark("B") 
             self.play(Indicate(solution_group_3[1], color=PURE_RED),
-                      Indicate(figure[3][-3], color=PURE_RED))
+                      Indicate(figure[3][-3], color=PURE_RED), run_time=tracker.duration)
         self.wait(2) 
 
         #Outro
