@@ -1,4 +1,7 @@
-# Main Py
+""" ABC is a triangle such that AB = 8 cm, angle B = 90⁰ and BC = 6 cm. M is the midpint of BC. Calculate:
+                          (a) angle BAM 
+                          (b) angle MAC
+"""
 from manim import *
 from manim_voiceover import VoiceoverScene
 from manim_voiceover.services.gtts import GTTSService
@@ -73,9 +76,9 @@ class TangentTriangle(VoiceoverScene):
         title = Tex(r"Using Tangents to Solve Triangles.", color=YELLOW)
         institution = Tex(r"@Kasiwa Academy")
         text="""
-            Hello! Welcome to yet another lesson where we are demonstrating how we can solve a problem that involves triangles using
-            one of the trigonometric ratios called the tangent. Stay with us right here at <bookmark mark="A"/>  Kasiwa Academy as
-            we continue helping each other develop skills in Mathematics.
+            Hello! Welcome to yet another lesson. Here we will be demonstrating how we can solve a problem involving triangles.
+            We will use one of the trigonometric ratios called the tangent. Stay with us right here at <bookmark mark="A"/> 
+            Kasiwa Academy as-we-continue-helping-each-other-develop-skills-in-Mathematics.
              """
         with self.voiceover(text=text) as tracker:
             self.play(Write(title), run_time=tracker.time_until_bookmark("A", limit=1))
@@ -96,7 +99,7 @@ class TangentTriangle(VoiceoverScene):
         text_1 = """
                 We begin by introducing the problem. We are given a triangle A-B-C in which A-B is equal to 8 cm, angle B is equal to 90
                 degrees and line B-C is equal to 6 cm. Point M is located at the middle of line B-C. We are asked to find the size of 
-               <bookmark mark="A"/> angle B-A-M and the size of<bookmark mark="B"/> angle M-A-C.
+               <bookmark mark="A"/> angle B-A-M and the size of<bookmark mark="B"/> angle M-AC.
                  """
         with self.voiceover(text=text_1) as tracker:
             self.play(Write(sub_title_1))
@@ -161,9 +164,9 @@ class TangentTriangle(VoiceoverScene):
                 Let us solve the first qustion where we are asked to calculate the size of angle B-A-M. We are firstly 
                 required <bookmark mark="A"/> to join point A to point M. From the newly created triangle A-B-M,
                 <bookmark mark="B"/> line B-M is equal to 3 cm. It is half of line B-C as M is the mid-point of B-C. 
-                Using the tangent ratio, <bookmark mark="C"/> which is simply the ratio of the opposite-side and the adjacent side,
+                Using the tangent ratio <bookmark mark="C"/> which is simply the ratio of the opposite-side and the adjacent side,
                 we get <bookmark mark="D"/> tangent of angle B-A-M as the ratio of line BM and line A-B.
-                The <bookmark mark="E"/> tangent of angle B-A-M becomes the ratio of 3 and 8 which simplifies to 0.375.
+                The <bookmark mark="E"/> tangent of angle B-A-M becomes the ratio of 3 cm and 8 cm which simplifies to 0.375.
                 Taking the <bookmark mark="F"/> inverse of the tangent of angle A-B-M we get 20.5 degrees.
                 Therefore the size of <bookmark mark="G"/>  angle B-A-M is 20.5 degrees.
                  """
@@ -185,7 +188,7 @@ class TangentTriangle(VoiceoverScene):
             self.play(figure[2][2].animate.set_opacity(1), figure[2][-1].animate.set_fill(opacity=1))
             self.play(Indicate(figure[2][2]))
             self.wait_until_bookmark("C")
-            self.play(Write(solution_group_1[2]), run_time=tracker.time_until_bookmark("D"))
+            self.play(Write(solution_group_1[2]), run_time=tracker.time_until_bookmark("D", limit=1))
             self.wait_until_bookmark("D")
             self.play(Write(solution_group_1[3]), run_time=tracker.time_until_bookmark("E", limit=1))
             self.wait()
@@ -209,12 +212,12 @@ class TangentTriangle(VoiceoverScene):
         self.play(ShrinkToCenter(question_1_group))
         text_4 = """
                 Let us now solve the second question where we are required to find the size of angle M-A-C. Using 
-                the big <bookmark mark="A"/> triangle A-B-C, we can find angle B-A-C. We use the same tangent ratio that we used for solving
-                the first question and we will get the <bookmark mark="B"/> ratio of line B-C and A-B with sizes 6 cm and 8 cm respectively,
+                the big <bookmark mark="A"/> triangle A-B-C we can find angle B-A-C. We use the same tangent ratio that we used for solving
+                the first question and we will get the <bookmark mark="B"/> ratio of line B-C and A-B with sizes 6 cm and 8 cm respectively
                 which evaluates to 0.75. Taking the inverse of <bookmark mark="C"/> tangent of angle B-A-C we find the size of angle B-A-C to
-                to be 36.5 degrees. The angle <bookmark mark="D"/> that we want to find , angle M-A-C, is between angle B-A-C and angle B-A-M.
+                be 36.5 degrees. The angle <bookmark mark="D"/> that we want to find angle M-A-C is between angle B-A-C and angle B-A-M.
                 Which means angle M-A-C <bookmark mark="E"/> can be found by subtracting angle B-A-M from angle B-A-C. If we 
-                <bookmark mark="F"/> subtract 20.5 degrees for angle B-A-M from 36.5 degrees for angle B-A-C, we get 16 degrees. Therefore, 
+                <bookmark mark="F"/> subtract 20.5 degrees for angle B-A-M from 36.5 degrees for angle B-A-C we get 16 degrees. Therefore 
                 <bookmark mark="G"/> the size of angle M-A-C is 16 degrees.
                  """
         with self.voiceover(text=text_4) as tracker:
@@ -248,17 +251,17 @@ class TangentTriangle(VoiceoverScene):
         self.play(ShrinkToCenter(question_2_group))
         text_5 = """
                 We have successfully found solutions to our questions. We have  managed to calculate the size of <bookmark mark="A"/>
-                angle M-A-C which as 16 degrees and the size of <bookmark mark="B"/> angle B-A-M is 20.5 degrees.
+                angle M-A-C as 16 degrees and the size of <bookmark mark="B"/> angle B-A-M as-20.5-degrees.
                  """
         with self.voiceover(text=text_5) as tracker:
             self.play(FadeTransform(sub_title_3, sub_title_4), 
                      GrowFromEdge(solution_group_3, RIGHT))
             self.wait_until_bookmark("A")
             self.play(Indicate(solution_group_3[0], color=PURE_BLUE),
-                      Indicate(figure[3][-1], color=PURE_BLUE), run_time=tracker.time_until_bookmark("B"))
+                      Indicate(figure[3][-1], color=PURE_BLUE), run_time=tracker.time_until_bookmark("B", limit=2))
             self.wait_until_bookmark("B") 
             self.play(Indicate(solution_group_3[1], color=PURE_RED),
-                      Indicate(figure[3][-3], color=PURE_RED), run_time=tracker.duration)
+                      Indicate(figure[3][-3], color=PURE_RED), run_time=2) 
         self.wait(2) 
 
         #Outro
