@@ -243,20 +243,15 @@ class Thumbnail(Scene):
         
         # Title text
         title = Text(
-            "Using Tangents", font="Roboto", weight=BOLD, color=YELLOW
+            "Introduction", font="Roboto", weight=BOLD, color=YELLOW
         ).scale(1.5).to_edge(UP)
 
         subtitle = Text(
-            "to Solve Triangles", font="Roboto", weight=BOLD, color=WHITE
+            "to Logarithms", font="Roboto", weight=BOLD, color=WHITE
         ).scale(1.5).next_to(title, DOWN, buff=0.3)
 
         # Formula
-        # formula = MathTex(r"x = \frac{b - k^3}{k^3}", color=WHITE).scale(1.7).next_to(subtitle, DOWN, buff=1)
+        formula = MathTex(r"a^x = b \qquad \Longleftrightarrow \qquad \log_a b = x", color=WHITE).scale(1.7).next_to(subtitle, DOWN, buff=1)
 
         # Add everything
-        figure = make_figure()
-        figure = figure.shift(DOWN).scale(0.85)
-        line_AM = figure[-1].set_opacity(1) 
-        angle_BAM = figure[3][2].set_opacity(1)
-        angle_MAC = figure[3][4].set_opacity(1)
-        self.add(title, subtitle, figure, line_AM, angle_BAM, angle_MAC)
+        self.add(title, subtitle, formula)
