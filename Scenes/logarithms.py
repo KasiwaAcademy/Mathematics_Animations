@@ -1,4 +1,4 @@
-# Logarithms
+# L-O-G-A-R-I-T-H-M-S
 
 from manim import *
 #from manim_voiceover import VoiceoverScene
@@ -27,21 +27,18 @@ class IntroductionLogarithm(Scene):
         self.add(logo_corner)
 
         # Intro
-        title = Tex(r"Using Tangents to Solve Triangles.", color=YELLOW)
-        institution = Tex(r"@Kasiwa Academy")
-        self.play(Write(title), run_time=tracker.time_until_bookmark("A", limit=1))
+        title = Tex(r"Introduction to Logarithms.", color=YELLOW)
+        sub_title = Tex(r"Understanding the inverse of exponents.")
+        self.play(Write(title))
         self.wait()
         self.play(title.animate.shift(UP).scale(1.3).set_color(YELLOW_B))
-        self.wait_until_bookmark("A")
-        self.play(FadeIn(institution, shift=UP))
-        self.wait(2)
-    #Outro
-    final_text = Tex("Thank you for watching!", color=YELLOW_B)
-    final_solution_group = VGroup(sub_title_4, figure, solution_group_3)
-    text_6 = """
-            Thank you for watching, see you in our next video.
-             """
-    with self.voiceover(text=text_6) as tracker:
+        self.wait()
+        self.play(FadeIn(sub_title, shift=UP))
+        self.wait(5)
+
+        #Outro
+        final_text = Tex("Thank you for watching!", color=YELLOW_B)
+        final_solution_group = VGroup(title, sub_title)
         self.play(
                 Write(final_text),
                   ShrinkToCenter(final_solution_group))        
@@ -49,8 +46,8 @@ class IntroductionLogarithm(Scene):
         self.play(logo_corner.animate.move_to(ORIGIN).scale(3), 
                     final_text.animate.to_edge(DOWN).set_color(WHITE).scale(1.3))
         self.wait()
-    self.play(FadeOut(final_text, logo_corner))
-    self.wait()
+        self.play(FadeOut(final_text, logo_corner))
+        self.wait()
 
 # Thumbnail for CubicGraph
 class Thumbnail(Scene):
