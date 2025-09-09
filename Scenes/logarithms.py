@@ -40,9 +40,11 @@ class IntroductionLogarithm(Scene):
         sub_title_1 = Tex(r"Introduction.", color=YELLOW).to_edge(DOWN)
         eq_group_1 = VGroup(
                 MathTex(r"2^x = 8"),
-                MathTex(r"2^x = 2^3"), 
-                MathTex(r"x = 3")
+                MathTex(r"2^", "x","=","2^", "3"), 
+                MathTex(r"x", "=","3")
                 ).arrange(DOWN, buff=1).scale(1)
+        eq_group_1[2][0].set_color(PURE_GREEN)
+        eq_group_1[2][2].set_color(PURE_BLUE)
         self.play(Write(sub_title_1))
         self.wait()
         self.play(FadeOut(title, sub_title, shift=UP),
@@ -51,18 +53,26 @@ class IntroductionLogarithm(Scene):
         self.wait()
         self.play(TransformFromCopy(eq_group_1[0], eq_group_1[1]))
         self.wait()
-        self.play(TransformFromCopy(eq_group_1[1], eq_group_1[2]))
+        self.play(eq_group_1[1][1].animate.set_color(PURE_GREEN), eq_group_1[1][4].animate.set_color(PURE_BLUE))
+        self.wait()
+        self.play(TransformFromCopy(eq_group_1[1][1], eq_group_1[2][0]), 
+                  TransformFromCopy(eq_group_1[1][4], eq_group_1[2][2]),
+                  FadeIn(eq_group_1[2][1]))
         self.wait(2)
 
         # Definition of Logarithms
         sub_title_2 = Tex(r"Definition of Logarithm.", color=YELLOW).to_edge(DOWN)
         eq_group_2 = VGroup(
                 Tex(r"A Logarithm is an inverse of an exponent."),
-                MathTex(r"a^x = b"), 
-                MathTex(r"\log_a b = x"),
-                MathTex(r"a^x = b \qquad \Longleftrightarrow \qquad \log_a b"),
+                MathTex(r"a^", "x", "=", "b"), 
+                MathTex(r"\log_", "a", "b", "=", "x"),
+                MathTex(r"a^x = b \qquad", r"\Longleftrightarrow", r"\qquad \log_a b = x"),
                 MathTex(r"2^3 = 8 \qquad \Longleftrightarrow \qquad \log_2 8 = 3")
                 ).arrange(DOWN, buff=0.75).scale(1)
+        eq_group_2[2][1].set_color(PURE_GREEN)
+        eq_group_2[2][4].set_color(PURE_RED)
+        eq_group_2[2][2].set_color(PURE_BLUE)
+
         self.play(Write(sub_title_2))
         self.wait()
         self.play(FadeOut(sub_title_1, eq_group_1, shift=UP),
@@ -71,9 +81,17 @@ class IntroductionLogarithm(Scene):
         self.wait()
         self.play(Write(eq_group_2[1]))
         self.wait()
-        self.play(Write(eq_group_2[2]))
+        self.play(eq_group_2[1][0].animate.set_color(PURE_GREEN),
+                  eq_group_2[1][1].animate.set_color(PURE_RED),
+                  eq_group_2[1][3].animate.set_color(PURE_BLUE))
+        self.play(TransformFromCopy(eq_group_2[1][0], eq_group_2[2][1]),
+                  TransformFromCopy(eq_group_2[1][1], eq_group_2[2][4]),
+                  TransformFromCopy(eq_group_2[1][3], eq_group_2[2][2]),
+                  FadeIn(eq_group_2[2][0], eq_group_2[2][3]))
         self.wait()
-        self.play(Write(eq_group_2[3]))
+        self.play(TransformFromCopy(eq_group_2[1], eq_group_2[3][0]),
+                  TransformFromCopy(eq_group_2[2], eq_group_2[3][2]),
+                  FadeIn(eq_group_2[3][1]))
         self.wait()
         self.play(Write(eq_group_2[4]))
         self.wait(2)
@@ -118,18 +136,23 @@ class IntroductionLogarithm(Scene):
         eq_1 = VGroup(
                 Tex(r"1. The base $a$ must be positive and\\"
                 r"not equal to 1 $(a > 0, a \neq 1)$"),
-                MathTex(r"\log_a b = x"),
-                Tex(r"$\log_2 8$ \qquad Correct!"),
-                Tex(r"$\log_{-2} 8$ \qquad Incorrect!")
+                MathTex(r"\log_{\boxed{a}} b = x"),
+                MathTex(r"\log_{", "2", "} 8", r"\qquad \text{Correct!}").set_color_by_tex("2", PURE_GREEN),
+                MathTex(r"\log_{", "-2", "} 8", r"\qquad \text{Incorrect!}").set_color_by_tex("-2", PURE_RED),
+                MathTex(r"\log_{", "1", "} 8", r"\qquad \text{Incorrect!}").set_color_by_tex("1", PURE_RED)
                 ).arrange(DOWN, buff=1, aligned_edge=LEFT)
-
+        eq_1[2][-1].set_color(PURE_GREEN)
+        eq_1[3][-1].set_color(PURE_RED)
+        eq_1[4][-1].set_color(PURE_RED)
         eq_2 = VGroup(
                 Tex(r"2. The argument must be\\"
                 r"positive $(b > 0)$"),
-                MathTex(r"\log_a b = x"),
-                Tex(r"$\log_2 8$ \qquad Correct!"),
-                Tex(r"$\log_2 -8$ \qquad Incorrect!")
+                MathTex(r"\log_a \boxed{b} = x"),
+                MathTex(r"\log_2", "8", r"\qquad \text{Correct!}").set_color_by_tex("8", PURE_GREEN),
+                MathTex(r"\log_2", "-8", r"\qquad \text{Incorrect!}").set_color_by_tex("-8", PURE_RED)
                 ).arrange(DOWN, buff=1, aligned_edge=LEFT)
+        eq_2[2][-1].set_color(PURE_GREEN)
+        eq_2[3][-1].set_color(PURE_RED)
         eq_group_4 = VGroup(eq_1, eq_2).arrange(RIGHT, buff=2, aligned_edge=UP).scale(0.75)
         self.play(Write(sub_title_4))
         self.wait()
@@ -142,6 +165,8 @@ class IntroductionLogarithm(Scene):
         self.play(Write(eq_group_4[0][2]))
         self.wait()
         self.play(Write(eq_group_4[0][3]))
+        self.wait()
+        self.play(Write(eq_group_4[0][4]))
         self.wait(2)
         self.play(Write(eq_group_4[1][0]))
         self.wait()
