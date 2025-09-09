@@ -1,6 +1,5 @@
 # L-O-G-A-R-I-T-H-M-S
 
-from re import M
 from manim import *
 #from manim_voiceover import VoiceoverScene
 #from manim_voiceover.services.gtts import GTTSService
@@ -38,7 +37,7 @@ class IntroductionLogarithm(Scene):
         self.wait(2)
         
         # Introduction
-        sub_title_1 = Tex(r"Introduction", color=YELLOW).to_edge(DOWN)
+        sub_title_1 = Tex(r"Introduction.", color=YELLOW).to_edge(DOWN)
         eq_group_1 = VGroup(
                 MathTex(r"2^x = 8"),
                 MathTex(r"2^x = 2^3"), 
@@ -46,15 +45,19 @@ class IntroductionLogarithm(Scene):
                 ).arrange(DOWN, buff=1).scale(1)
         self.play(Write(sub_title_1))
         self.wait()
-        self.play(FadeOut(title, sub_title),
+        self.play(FadeOut(title, sub_title, shift=UP),
                   sub_title_1.animate.to_edge(UP).set_color(YELLOW_B).scale(1.5),
-                  Write(eq_group_1))
+                  Write(eq_group_1[0]))
+        self.wait()
+        self.play(TransformFromCopy(eq_group_1[0], eq_group_1[1]))
+        self.wait()
+        self.play(TransformFromCopy(eq_group_1[1], eq_group_1[2]))
         self.wait(2)
 
         # Definition of Logarithms
         sub_title_2 = Tex(r"Definition of Logarithm.", color=YELLOW).to_edge(DOWN)
         eq_group_2 = VGroup(
-                Tex(r"A Logarithm is an inverse of an exponent"),
+                Tex(r"A Logarithm is an inverse of an exponent."),
                 MathTex(r"a^x = b"), 
                 MathTex(r"\log_a b = x"),
                 MathTex(r"a^x = b \qquad \Longleftrightarrow \qquad \log_a b"),
@@ -62,9 +65,17 @@ class IntroductionLogarithm(Scene):
                 ).arrange(DOWN, buff=0.75).scale(1)
         self.play(Write(sub_title_2))
         self.wait()
-        self.play(FadeOut(sub_title_1, eq_group_1),
+        self.play(FadeOut(sub_title_1, eq_group_1, shift=UP),
                   sub_title_2.animate.to_edge(UP).set_color(YELLOW_B).scale(1.5),
-                  Write(eq_group_2))
+                  Write(eq_group_2[0]))
+        self.wait()
+        self.play(Write(eq_group_2[1]))
+        self.wait()
+        self.play(Write(eq_group_2[2]))
+        self.wait()
+        self.play(Write(eq_group_2[3]))
+        self.wait()
+        self.play(Write(eq_group_2[4]))
         self.wait(2)
 
         # Examples
@@ -87,9 +98,19 @@ class IntroductionLogarithm(Scene):
         eq_group_3 = VGroup(eq_1, eq_2, eq_3).arrange(RIGHT, buff=1.5, aligned_edge=UP)
         self.play(Write(sub_title_3))
         self.wait()
-        self.play(FadeOut(sub_title_2, eq_group_2),
+        self.play(FadeOut(sub_title_2, eq_group_2, shift=UP),
                   sub_title_3.animate.to_edge(UP).set_color(YELLOW_B).scale(1.5),
-                  Write(eq_group_3))
+                  Write(eq_group_3[0][0]))
+        self.wait()
+        self.play(TransformFromCopy(eq_group_3[0][0], eq_group_3[0][1:3]))
+        self.wait(2)
+        self.play(Write(eq_group_3[1][0]))
+        self.wait()
+        self.play(TransformFromCopy(eq_group_3[1][0], eq_group_3[1][1:3]))
+        self.wait(2)
+        self.play(Write(eq_group_3[2][0]))
+        self.wait()
+        self.play(TransformFromCopy(eq_group_3[2][0], eq_group_3[2][1:3]))
         self.wait(2) 
 
         # Conditions of a Logarithm
@@ -112,9 +133,23 @@ class IntroductionLogarithm(Scene):
         eq_group_4 = VGroup(eq_1, eq_2).arrange(RIGHT, buff=2, aligned_edge=UP).scale(0.75)
         self.play(Write(sub_title_4))
         self.wait()
-        self.play(FadeOut(sub_title_3, eq_group_3),
+        self.play(FadeOut(sub_title_3, eq_group_3, shift=UP),
                   sub_title_4.animate.to_edge(UP).set_color(YELLOW_B).scale(1.5),
-                  Write(eq_group_4))
+                  Write(eq_group_4[0][0]))
+        self.wait()
+        self.play(Write(eq_group_4[0][1]))
+        self.wait()
+        self.play(Write(eq_group_4[0][2]))
+        self.wait()
+        self.play(Write(eq_group_4[0][3]))
+        self.wait(2)
+        self.play(Write(eq_group_4[1][0]))
+        self.wait()
+        self.play(Write(eq_group_4[1][1]))
+        self.wait()
+        self.play(Write(eq_group_4[1][2]))
+        self.wait()
+        self.play(Write(eq_group_4[1][3]))
         self.wait(2)
 
         # Common Types of Logarithms
@@ -136,9 +171,25 @@ class IntroductionLogarithm(Scene):
         eq_group_5 = VGroup(eq_1, eq_2).arrange(RIGHT, buff=2, aligned_edge=UP).scale(0.75)
         self.play(Write(sub_title_5))
         self.wait()
-        self.play(FadeOut(sub_title_4, eq_group_4),
+        self.play(FadeOut(sub_title_4, eq_group_4, shift=UP),
                   sub_title_5.animate.to_edge(UP).set_color(YELLOW_B).scale(1.5),
-                  Write(eq_group_5))
+                  Write(eq_group_5[0][0]))
+        self.wait()
+        self.play(Write(eq_group_5[0][1]))
+        self.wait()
+        self.play(Write(eq_group_5[0][2]))
+        self.wait()
+        self.play(Write(eq_group_5[0][3]))
+        self.wait(2)
+        self.play(Write(eq_group_5[1][0]))
+        self.wait()
+        self.play(Write(eq_group_5[1][1]))
+        self.wait()
+        self.play(Write(eq_group_5[1][2]))
+        self.wait()
+        self.play(Write(eq_group_5[1][3]))
+        self.wait()
+        self.play(Write(eq_group_5[1][4]))
         self.wait(2)
 
         # Laws of Logarithms
@@ -151,9 +202,15 @@ class IntroductionLogarithm(Scene):
                 ).arrange(DOWN, buff=1, aligned_edge=LEFT).scale(1)
         self.play(Write(sub_title_6))
         self.wait()
-        self.play(FadeOut(sub_title_5, eq_group_5),
+        self.play(FadeOut(sub_title_5, eq_group_5, shift=UP),
                   sub_title_6.animate.to_edge(UP).set_color(YELLOW_B).scale(1.5),
-                  Write(eq_group_6))
+                  Write(eq_group_6[0]))
+        self.wait()
+        self.play(Write(eq_group_6[1]))
+        self.wait()
+        self.play(Write(eq_group_6[2]))
+        self.wait()
+        self.play(Write(eq_group_6[3]))
         self.wait(2)
 
         # Examples
@@ -185,9 +242,43 @@ class IntroductionLogarithm(Scene):
         eq_group_7 = VGroup(eq_1, eq_2, eq_3).arrange(RIGHT, buff=1, aligned_edge=UP).scale(0.5)
         self.play(Write(sub_title_7))
         self.wait()
-        self.play(FadeOut(sub_title_6, eq_group_6),
+        self.play(FadeOut(sub_title_6, eq_group_6, shift=UP),
                   sub_title_7.animate.to_edge(UP).set_color(YELLOW_B).scale(1.5),
-                  Write(eq_group_7))
+                  Write(eq_group_7[0][0]))
+        self.wait()
+        self.play(Write(eq_group_7[0][1]))
+        self.wait()
+        self.play(TransformFromCopy(eq_group_7[0][1], eq_group_7[0][2]))
+        self.wait()
+        self.play(TransformFromCopy(eq_group_7[0][2], eq_group_7[0][3]))
+        self.wait()
+        self.play(TransformFromCopy(eq_group_7[0][3], eq_group_7[0][4]))
+        self.wait()
+        self.play(TransformFromCopy(eq_group_7[0][4], eq_group_7[0][5]))
+        self.wait()
+        self.play(TransformFromCopy(eq_group_7[0][5], eq_group_7[0][6]))
+        self.wait(2)
+        self.play(Write(eq_group_7[1][0]))
+        self.wait()
+        self.play(Write(eq_group_7[1][1]))
+        self.wait()
+        self.play(TransformFromCopy(eq_group_7[1][1], eq_group_7[1][2]))
+        self.wait()
+        self.play(TransformFromCopy(eq_group_7[1][2], eq_group_7[1][3]))
+        self.wait()
+        self.play(TransformFromCopy(eq_group_7[1][3], eq_group_7[1][4]))
+        self.wait()
+        self.play(TransformFromCopy(eq_group_7[1][4], eq_group_7[1][5]))
+        self.wait()
+        self.play(TransformFromCopy(eq_group_7[1][5], eq_group_7[1][6]))
+        self.wait(2)
+        self.play(Write(eq_group_7[2][0]))
+        self.wait()
+        self.play(Write(eq_group_7[2][1]))
+        self.wait()
+        self.play(TransformFromCopy(eq_group_7[2][1], eq_group_7[2][2]))
+        self.wait()
+        self.play(TransformFromCopy(eq_group_7[2][2], eq_group_7[2][3]))
         self.wait(2) 
 
         # Practice Questions
@@ -199,9 +290,13 @@ class IntroductionLogarithm(Scene):
                 ).arrange(DOWN, buff=1, aligned_edge=LEFT)
         self.play(Write(sub_title_8))
         self.wait()
-        self.play(FadeOut(sub_title_7, eq_group_7),
+        self.play(FadeOut(sub_title_7, eq_group_7, shift=UP),
                   sub_title_8.animate.to_edge(UP).scale(1.5).set_color(YELLOW_B),
-                  Write(eq_group_8))
+                  Write(eq_group_8[0]))
+        self.wait()
+        self.play(Write(eq_group_8[1]))
+        self.wait()
+        self.play(Write(eq_group_8[2]))
         self.wait(2) 
 
         # Summary
@@ -214,9 +309,15 @@ class IntroductionLogarithm(Scene):
                 ).arrange(DOWN, buff=1, aligned_edge=LEFT)
         self.play(Write(sub_title_9))
         self.wait()
-        self.play(FadeOut(sub_title_8, eq_group_8),
+        self.play(FadeOut(sub_title_8, eq_group_8, shift=UP),
                   sub_title_9.animate.to_edge(UP).scale(1.5).set_color(YELLOW_B),
-                  Write(eq_group_9))
+                  Write(eq_group_9[0]))
+        self.wait()
+        self.play(Write(eq_group_9[1]))
+        self.wait()
+        self.play(Write(eq_group_9[2]))
+        self.wait()
+        self.play(Write(eq_group_9[3]))
         self.wait(2) 
         #Outro
         final_text = Tex("Thank you for watching!", color=YELLOW_B)
