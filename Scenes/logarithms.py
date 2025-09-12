@@ -227,15 +227,16 @@ class IntroductionLogarithm(VoiceoverScene):
         text = """
                 Now, there are some important rules about when logarithms are valid.
 
-                First, the base of a logarithm must always be positive, and it cannot be equal to one. Why?
-                Because if the base is negative, powers don’t always make sense — for example, 
-                what is negative two raised to the power of one-half?
-                And if the base is one, then no matter what exponent you use, the result is always one, 
-                so the logarithm would not be meaningful.
+                First, the base of a logarithm must always be positive, and it cannot be
+                equal to one. Why? Because if the base is negative, powers don’t always 
+                make sense — for example, what is negative two raised to the power of 
+                one-half? And if the base is one, then no matter what exponent you use, 
+                the result is always one, so the logarithm would not be meaningful.
 
-                Second, the argument — the number we take the log of — must also be positive.
-                For example, log base two of eight is valid, but log base two of negative eight is not, 
-                because no power of two will ever give a negative result.
+                Second, the argument — the number we take the log of — must also be 
+                positive. For example, log base two of eight is valid, but log base two 
+                of negative eight is not, because no power of two will ever give a 
+                negative result.
                """
         with self.voiceover(text=text) as tracker:
             self.play(Write(sub_title_4))
@@ -287,11 +288,14 @@ class IntroductionLogarithm(VoiceoverScene):
 
                 The first is the logarithm with base ten, called the common logarithm. 
                 This is the one you often see on calculators, simply written as log.
-                For example, log of one thousand means log base ten of one thousand, which equals three.
+                For example, log of one thousand means log base ten of one thousand, 
+                which equals three.
 
-                The second is the logarithm with base e, where e is a special number approximately equal to two point seven one eight.
-                This is called the natural logarithm, and it is written as ln. Natural logarithms are especially important in science,
-                economics, and engineering, because they connect directly to continuous growth and decay.
+                The second is the logarithm with base e, where e is a special number 
+                approximately equal to two point seven one eight. This is called the 
+                natural logarithm, and it is written as ln. Natural logarithms are 
+                especially important in science, economics, and engineering, because 
+                they connect directly to continuous growth and decay.
                """
         with self.voiceover(text=text) as tracker:
             self.play(Write(sub_title_5))
