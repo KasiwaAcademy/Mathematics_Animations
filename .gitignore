@@ -218,3 +218,4 @@ Videos
 pyrightconfig.json
 **.swp
 **demo.py
+pyproject.toml
