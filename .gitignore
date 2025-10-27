@@ -219,3 +219,5 @@ pyrightconfig.json
 **.swp
 **demo.py
 pyproject.toml
+.manim_venv/
+.manim_env/
