@@ -4,6 +4,7 @@ config.pixel_width = 1920
 config.pixel_height = 1080
 config.frame_rate = 30
 config.disable_caching = True
+config.background_opacity = 0.9
 
 
 class SimplifyQuadraticExpressions(Scene):
