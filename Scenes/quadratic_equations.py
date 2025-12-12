@@ -24,7 +24,7 @@ class SimplifyQuadraticExpressions(Scene):
         )
         eq_group_1 = (
             VGroup(
-                MathTex(r"\frac{a^2 + 2ab + b^2}{a^2 - b^2}$"),
+                MathTex(r"\frac{a^2 + 2ab + b^2}{a^2 - b^2}"),
                 MathTex(r"\frac{(a + b)^2}{(a + b)(a - b)}"),
             )
             .arrange(DOWN, buff=0.5)
