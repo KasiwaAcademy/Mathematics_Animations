@@ -14,7 +14,7 @@ class QuadraticEquation1(VoiceoverScene):
     def construct(self):
         # self.set_speech_service(GTTSService())
         self.set_speech_service(
-            RecorderService(use_pyaudio=True, trim_silence_threshold=None)
+            RecorderService(transcription_model=None, use_pyaudio=False)
         )
 
         # Create a custom Latex template that includes the cancel package
