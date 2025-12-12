@@ -1,4 +1,8 @@
 from manim import *
+from manim_voiceover import VoiceoverScene
+
+# from manim_voiceover.services.gtts import GTTSService
+from manim_voiceover.services.recorder import RecorderService
 
 config.pixel_width = 1920
 config.pixel_height = 1080
@@ -6,8 +10,13 @@ config.frame_rate = 30
 config.disable_caching = True
 
 
-class CubicGraph(Scene):
+class QuadraticEquation1(VoiceoverScene):
     def construct(self):
+        # self.set_speech_service(GTTSService())
+        self.set_speech_service(
+            RecorderService(use_pyaudio=True, trim_silence_threshold=None)
+        )
+
         # Create a custom Latex template that includes the cancel package
         my_template = TexTemplate()
         my_template.add_to_preamble(r"\usepackage{cancel}")
@@ -19,19 +28,29 @@ class CubicGraph(Scene):
         self.add(logo_corner)
 
         # Intro
-        title = Tex(r"Solving Simultaneous Equations Graphically.", color=YELLOW)
-        institution = Tex(r"@Kasiwa Academy")
-        self.play(Write(title))
-        self.wait()
-        self.play(
-            title.animate.shift(UP).scale(1.3).set_color(YELLOW_B),
-            FadeIn(institution, shift=UP),
+        title = Tex(r"Solving Simultaneous Equations Graphically.", color=YELLOW).shift(
+            UP
         )
+        self.wait()
+        institution = Tex(r"@Kasiwa Academy")
+        intro_group = VGroup(title, institution)
+        self.play(Write(intro_group[0]))
+        self.wait()
+        self.play(FadeIn(intro_group[1], shift=UP))
         self.wait(2)
+
+        # Voice_over code:
+        text = "The circle is drawn as I speak"
+        circle = Circle()
+        self.play(intro_group.animate.to_edge(UP))
+        self.wait()
+        with self.voiceover(text=text) as tracker:
+            self.play(Create(circle), run_time=tracker.duration)
+            self.wait(2)
 
         # Outro
         final_text = Tex("Thank you for watching!", color=YELLOW_B)
-        self.play(Write(final_text), FadeOut(institution, shift=UP))
+        self.play(Write(final_text), FadeOut(intro_group, circle, shift=UP))
         self.wait()
         self.play(
             logo_corner.animate.move_to(ORIGIN).scale(3),
