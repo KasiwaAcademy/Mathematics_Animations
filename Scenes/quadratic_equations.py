@@ -10,7 +10,7 @@ class SimplifyQuadraticExpressions(Scene):
     def construct(self):
         # Create a custom Latex template that includes the cancel package
         my_template = TexTemplate()
-        my_template.add_to_preamble(r"\usepackage{xcolor}")  # ✅ REQUIRED
+        my_template.add_to_preamble(r"\usepackage{xcolor}")
         my_template.add_to_preamble(r"\usepackage{cancel}")
         my_template.add_to_preamble(r"\renewcommand{\CancelColor}{\color{red}}")
 
