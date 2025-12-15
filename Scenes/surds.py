@@ -33,7 +33,7 @@ class RationalisingSurds(Scene):
         # Equation Group 1
         eq_group_1 = (
             VGroup(
-                MathTex(r"\frac{\sqrt{5} - 3\sqrt{3}}{2\sqrt{3} - \sqrt{5}}"),
+                MathTex(r"\frac{\sqrt{5} - 3\sqrt{3}}{2\sqrt{3} + \sqrt{5}}"),
                 MathTex(
                     r"\frac{(\sqrt{5}-3\sqrt{3})(2\sqrt{3}-\sqrt{5})}"
                     r"{(2\sqrt{3}+\sqrt{5})(2\sqrt{3}-\sqrt{5})}"
@@ -85,6 +85,15 @@ class RationalisingSurds(Scene):
             .arrange(DOWN, buff=0.75)
             .scale(0.7)
         )
+        # Conjugate Group
+        conjugate = VGroup(
+            Tex(
+                r"Denominator $\quad \Longrightarrow \quad 2\sqrt{3} + \sqrt{5}$"
+            ).set_color(PURE_BLUE),
+            Tex(
+                r"Conjugate $\quad \Longrightarrow \quad 2\sqrt{3} - \sqrt{5}$"
+            ).set_color(PURE_GREEN),
+        ).arrange(DOWN, buff=1)
 
         columns = VGroup(eq_group_2, eq_group_1, eq_group_3).arrange(
             RIGHT, buff=1, aligned_edge=UP
@@ -186,7 +195,10 @@ class RationalisingSurds(Scene):
         self.wait(2)
         self.play(Transform(problem, title_group), Write(columns[1]))
         self.wait(2)
+        self.play(Write(conjugate), run_time=3)
+        self.wait(2)
         self.play(
+            FadeOut(conjugate),
             FadeIn(
                 columns[0],
                 columns[2],
@@ -194,7 +206,7 @@ class RationalisingSurds(Scene):
                 c_arrow_2_group,
                 c_arrow_3_group,
                 final_solution_box,
-            )
+            ),
         )
         self.wait(3)
 
