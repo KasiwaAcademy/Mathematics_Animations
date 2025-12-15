@@ -1,4 +1,5 @@
 from manim import *
+from manim.utils.color.X11 import BROWN1
 
 config.pixel_width = 1920
 config.pixel_height = 1080
@@ -168,9 +169,11 @@ class RationalisingSurds(Scene):
             columns[2][1][5].get_top(),
             angle=-PI / 4,
             stroke_width=2,
+            color=YELLOW_B,
         )
         c_arrow_2_group = VGroup(c_arrow_21, c_arrow_22, c_arrow_23, c_arrow_24)
         c_arrow_3_group = VGroup(c_arrow_31, c_arrow_32, c_arrow_33, c_arrow_34)
+        final_solution_box = SurroundingRectangle(columns[1][2], color=BROWN1)
 
         self.play(Write(problem), run_time=3)
         self.wait(2)
@@ -183,6 +186,7 @@ class RationalisingSurds(Scene):
                 arrow_group,
                 c_arrow_2_group,
                 c_arrow_3_group,
+                final_solution_box,
             )
         )
         self.wait(3)
@@ -192,7 +196,14 @@ class RationalisingSurds(Scene):
         self.play(
             Write(final_text),
             ShrinkToCenter(
-                VGroup(problem, columns, arrow_group, c_arrow_2_group, c_arrow_3_group)
+                VGroup(
+                    problem,
+                    columns,
+                    arrow_group,
+                    c_arrow_2_group,
+                    c_arrow_3_group,
+                    final_solution_box,
+                )
             ),
         )
         self.wait()
