@@ -193,13 +193,15 @@ class RationalisingSurds(Scene):
 
         self.play(Write(problem), run_time=3)
         self.wait(2)
-        self.play(Transform(problem, title_group), Write(columns[1]))
+        self.play(Transform(problem, title_group), Write(columns[1][0]))
         self.wait(2)
         self.play(Write(conjugate), run_time=3)
         self.wait(2)
+        self.play(Transform(conjugate, columns[1][1]))
+        self.wait(2)
         self.play(
-            FadeOut(conjugate),
             FadeIn(
+                columns[1][2],
                 columns[0],
                 columns[2],
                 arrow_group,
