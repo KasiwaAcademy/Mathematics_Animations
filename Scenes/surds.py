@@ -126,24 +126,28 @@ class RationalisingSurds(Scene):
             columns[0][1][4].get_top(),
             angle=-PI / 4,
             stroke_width=2,
+            color=YELLOW_B,
         )
         c_arrow_22 = CurvedArrow(
             columns[0][1][1].get_top(),
             columns[0][1][5].get_top(),
             angle=-PI / 4,
             stroke_width=2,
+            color=YELLOW_B,
         )
         c_arrow_23 = CurvedArrow(
             columns[0][1][2].get_top(),
             columns[0][1][4].get_top(),
             angle=-PI / 4,
             stroke_width=2,
+            color=YELLOW_B,
         )
         c_arrow_24 = CurvedArrow(
             columns[0][1][2].get_top(),
             columns[0][1][5].get_top(),
             angle=-PI / 4,
             stroke_width=2,
+            color=YELLOW_B,
         )
         # Expanding Denominator curved arrows
         c_arrow_31 = CurvedArrow(
@@ -151,18 +155,21 @@ class RationalisingSurds(Scene):
             columns[2][1][4].get_top(),
             angle=-PI / 4,
             stroke_width=2,
+            color=YELLOW_B,
         )
         c_arrow_32 = CurvedArrow(
             columns[2][1][1].get_top(),
             columns[2][1][5].get_top(),
             angle=-PI / 4,
             stroke_width=2,
+            color=YELLOW_B,
         )
         c_arrow_33 = CurvedArrow(
             columns[2][1][2].get_top(),
             columns[2][1][4].get_top(),
             angle=-PI / 4,
             stroke_width=2,
+            color=YELLOW_B,
         )
         c_arrow_34 = CurvedArrow(
             columns[2][1][2].get_top(),
@@ -173,7 +180,7 @@ class RationalisingSurds(Scene):
         )
         c_arrow_2_group = VGroup(c_arrow_21, c_arrow_22, c_arrow_23, c_arrow_24)
         c_arrow_3_group = VGroup(c_arrow_31, c_arrow_32, c_arrow_33, c_arrow_34)
-        final_solution_box = SurroundingRectangle(columns[1][2], color=BROWN1)
+        final_solution_box = SurroundingRectangle(columns[1][2], color=BROWN1, buff=0.3)
 
         self.play(Write(problem), run_time=3)
         self.wait(2)
