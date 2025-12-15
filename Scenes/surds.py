@@ -220,6 +220,7 @@ class RationalisingSurds(Scene):
                 VGroup(
                     problem,
                     columns,
+                    columns[1][1],
                     arrow_group,
                     c_arrow_2_group,
                     c_arrow_3_group,
