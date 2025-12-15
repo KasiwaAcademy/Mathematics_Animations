@@ -39,7 +39,7 @@ class RationalisingSurds(Scene):
                 ),
                 MathTex(r"\frac{5\sqrt{15} - 23}{7}"),
             )
-            .arrange(DOWN, buff=0.5)
+            .arrange(DOWN, buff=1.5)
             .scale(0.7)
         )
 
@@ -47,12 +47,20 @@ class RationalisingSurds(Scene):
         eq_group_2 = (
             VGroup(
                 Text(r"Expand Numerator", color=PURE_RED, font_size=30),
-                MathTex(r"(\sqrt{5}-3\sqrt{3})(2\sqrt{3}-\sqrt{5})"),
-                MathTex(r"2\sqrt{15} - \sqrt{25} - 6\sqrt{9} - 3\sqrt{15}"),
+                MathTex(
+                    r"(",
+                    r"\sqrt{5}",
+                    r"-3\sqrt{3}",
+                    r")(",
+                    r"2\sqrt{3}",
+                    r"-\sqrt{5}",
+                    r")",
+                ),
+                MathTex(r"2\sqrt{15}", r"- \sqrt{25}", r"- 6\sqrt{9}", r"- 3\sqrt{15}"),
                 MathTex(r"2\sqrt{15} - 5 - 18 + 3\sqrt{15}"),
                 MathTex(r"5\sqrt{15} - 23"),
             )
-            .arrange(DOWN, buff=0.5)
+            .arrange(DOWN, buff=0.75)
             .scale(0.7)
         )
 
@@ -60,18 +68,27 @@ class RationalisingSurds(Scene):
         eq_group_3 = (
             VGroup(
                 Text(r"Expand Denominator", color=PURE_RED, font_size=30),
-                MathTex(r"(2\sqrt{3}-\sqrt{5})(2\sqrt{3}-\sqrt{5})"),
-                MathTex(r"4\sqrt{9} - 2\sqrt{15} + 2\sqrt{15} + \sqrt{25}"),
+                MathTex(
+                    r"(",
+                    r"2\sqrt{3}",
+                    r"-\sqrt{5}",
+                    r")(",
+                    r"2\sqrt{3}",
+                    r"-\sqrt{5}",
+                    r")",
+                ),
+                MathTex(r"4\sqrt{9}", r"- 2\sqrt{15}", r"+ 2\sqrt{15}", r"+ \sqrt{25}"),
                 MathTex(r"12 - 5"),
                 MathTex(r"7"),
             )
-            .arrange(DOWN, buff=0.5)
+            .arrange(DOWN, buff=0.75)
             .scale(0.7)
         )
 
         columns = VGroup(eq_group_2, eq_group_1, eq_group_3).arrange(
             RIGHT, buff=1, aligned_edge=UP
         )
+        # Arrows pointing from the main expression to the expanded expressions
         arrow_1 = Arrow(
             start=columns[1][1][0][0].get_left(),
             end=columns[0][1].get_right(),
@@ -86,19 +103,97 @@ class RationalisingSurds(Scene):
             stroke_width=3,
             color=BLUE,
         )
+        arrow_3 = Arrow(
+            start=columns[0][4].get_right(),
+            end=columns[1][2][0][0].get_left(),
+            buff=0.1,
+            stroke_width=3,
+            color=GREEN,
+        )
+        arrow_4 = Arrow(
+            start=columns[2][4].get_left(),
+            end=columns[1][2][0][-1].get_right(),
+            buff=0.1,
+            stroke_width=3,
+            color=GREEN,
+        )
+
+        arrow_group = VGroup(arrow_1, arrow_2, arrow_3, arrow_4)
+        # Expanding Numerator curved arrows
+        c_arrow_21 = CurvedArrow(
+            columns[0][1][1].get_top(),
+            columns[0][1][4].get_top(),
+            angle=-PI / 4,
+            stroke_width=2,
+        )
+        c_arrow_22 = CurvedArrow(
+            columns[0][1][1].get_top(),
+            columns[0][1][5].get_top(),
+            angle=-PI / 4,
+            stroke_width=2,
+        )
+        c_arrow_23 = CurvedArrow(
+            columns[0][1][2].get_top(),
+            columns[0][1][4].get_top(),
+            angle=-PI / 4,
+            stroke_width=2,
+        )
+        c_arrow_24 = CurvedArrow(
+            columns[0][1][2].get_top(),
+            columns[0][1][5].get_top(),
+            angle=-PI / 4,
+            stroke_width=2,
+        )
+        # Expanding Denominator curved arrows
+        c_arrow_31 = CurvedArrow(
+            columns[2][1][1].get_top(),
+            columns[2][1][4].get_top(),
+            angle=-PI / 4,
+            stroke_width=2,
+        )
+        c_arrow_32 = CurvedArrow(
+            columns[2][1][1].get_top(),
+            columns[2][1][5].get_top(),
+            angle=-PI / 4,
+            stroke_width=2,
+        )
+        c_arrow_33 = CurvedArrow(
+            columns[2][1][2].get_top(),
+            columns[2][1][4].get_top(),
+            angle=-PI / 4,
+            stroke_width=2,
+        )
+        c_arrow_34 = CurvedArrow(
+            columns[2][1][2].get_top(),
+            columns[2][1][5].get_top(),
+            angle=-PI / 4,
+            stroke_width=2,
+        )
+        c_arrow_2_group = VGroup(c_arrow_21, c_arrow_22, c_arrow_23, c_arrow_24)
+        c_arrow_3_group = VGroup(c_arrow_31, c_arrow_32, c_arrow_33, c_arrow_34)
 
         self.play(Write(problem), run_time=3)
         self.wait(2)
         self.play(Transform(problem, title_group), Write(columns[1]))
         self.wait(2)
-        self.play(FadeIn(columns[0], columns[2], arrow_1, arrow_2))
+        self.play(
+            FadeIn(
+                columns[0],
+                columns[2],
+                arrow_group,
+                c_arrow_2_group,
+                c_arrow_3_group,
+            )
+        )
         self.wait(3)
 
         # Outro
         final_text = Tex("Thank you for watching!", color=YELLOW_B)
         self.play(
             Write(final_text),
-            ShrinkToCenter(VGroup(problem, columns, arrow_1, arrow_2)),
+            ShrinkToCenter(
+                VGroup(problem, columns, arrow_group, c_arrow_2_group, c_arrow_3_group)
+            ),
         )
         self.wait()
         self.play(
