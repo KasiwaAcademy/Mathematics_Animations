@@ -162,28 +162,28 @@ class RationalisingSurds(Scene):
         c_arrow_31 = CurvedArrow(
             columns[2][1][1].get_top(),
             columns[2][1][4].get_top(),
-            angle=-PI / 4,
+            angle=PI / 4,
             stroke_width=2,
             color=YELLOW_B,
         )
         c_arrow_32 = CurvedArrow(
             columns[2][1][1].get_top(),
             columns[2][1][5].get_top(),
-            angle=-PI / 4,
+            angle=PI / 4,
             stroke_width=2,
             color=YELLOW_B,
         )
         c_arrow_33 = CurvedArrow(
             columns[2][1][2].get_top(),
             columns[2][1][4].get_top(),
-            angle=-PI / 4,
+            angle=PI / 4,
             stroke_width=2,
             color=YELLOW_B,
         )
         c_arrow_34 = CurvedArrow(
             columns[2][1][2].get_top(),
             columns[2][1][5].get_top(),
-            angle=-PI / 4,
+            angle=PI / 4,
             stroke_width=2,
             color=YELLOW_B,
         )
