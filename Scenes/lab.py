@@ -37,3 +37,4 @@ class LabTest(Scene):
         self.wait()
         self.play(ShrinkToCenter(VGroup(problem, eq_group, box)))
         self.wait()
+
