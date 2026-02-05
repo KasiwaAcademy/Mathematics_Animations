@@ -29,7 +29,7 @@ class Reel(Scene):
         eq_group = (
             VGroup(
                 MathTex(r"\frac{32^4 \times 625^3}{8^6 \times 25^4} = 2^p5^q"),
-                MathTex(r"\frac{2^{20} \times 5^{12}}{2^{18} \times 25^4} = 2^p5^q"),
+                MathTex(r"\frac{2^{20} \times 5^{12}}{2^{18} \times 5^8} = 2^p5^q"),
                 MathTex(r"2", r"^2", r"\times 5", r"^4", r"= 2", r"^p", r"5", r"^q"),
                 Tex(r"$p=2$", r" and ", r"$q=4$"),
             )
