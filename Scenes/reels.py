@@ -1,0 +1,96 @@
+from manim import *
+
+config.pixel_width = 1920
+config.pixel_height = 1080
+config.frame_rate = 30
+config.disable_caching = True
+
+
+class Reel(Scene):
+    def construct(self):
+        # Create a custom Latex template that includes the cancel package
+        my_template = TexTemplate()
+        my_template.add_to_preamble(r"\usepackage{xcolor}")
+        my_template.add_to_preamble(r"\usepackage{cancel}")
+        my_template.add_to_preamble(r"\renewcommand{\CancelColor}{\color{red}}")
+
+        # Load and position logo image
+        logo = ImageMobject("../Images/logo.png")
+        logo_corner = logo.scale(0.15)
+        logo_corner.to_corner(DR, buff=-0.2)
+        self.add(logo_corner)
+
+        # Problem Statement
+        problem = Tex(
+            r"Solve for $p$ and $q$ in $\frac{32^4 \times 625^3}{8^6 \times 25^4} = 2^p5^q$"
+        )
+        underline = Underline(problem)
+        problem_group = VGroup(problem, underline)
+        eq_group = (
+            VGroup(
+                MathTex(r"\frac{32^4 \times 625^3}{8^6 \times 25^4} = 2^p5^q"),
+                MathTex(r"\frac{2^{20} \times 5^{12}}{2^{18} \times 25^4} = 2^p5^q"),
+                MathTex(r"2", r"^2", r"\times 5", r"^4" r"= 2", r"^p", r"5", r"^q"),
+                Tex(r"$p=2$ and $q=4$"),
+            )
+            .arrange(DOWN, buff=0.5, aligned_edge=LEFT)
+            .shift(RIGHT * 3)
+        )
+        annot_1 = (
+            Tex(
+                r"Write each element as a \\"
+                r"power of $2$ and $5$."
+            )
+            .next_to(eq_group[0], LEFT * 3)
+            .set_color(RED)
+            .scale(0.85)
+        )
+        annot_2 = (
+            Tex(
+                r"Simplify the Left-Hand-Side\\"
+                r"of the equation."
+            )
+            .next_to(eq_group[1], LEFT * 3)
+            .set_color(RED)
+            .scale(0.85)
+        )
+        annot_3 = (
+            Tex(r"Equate the elements")
+            .next_to(eq_group[2], LEFT * 3)
+            .set_color(RED)
+            .scale(0.85)
+        )
+        annot_group = VGroup(annot_1, annot_2, annot_3)
+        self.play(Write(problem_group[0]))
+        self.wait(2)
+        self.play(problem_group.animate.to_edge(UP).scale(1.1).set_color(YELLOW_C))
+        self.wait(2)
+        self.play(Write(eq_group[0]))
+        self.wait(2)
+        self.play(Write(annot_group[0]))
+        self.wait()
+        self.play(TransformFromCopy(eq_group[0], eq_group[1]))
+        self.wait(2)
+        self.play(Write(annot_group[1]))
+        self.wait()
+        self.play(TransformFromCopy(eq_group[1], eq_group[2]))
+        self.wait(2)
+        self.play(Write(annot_group[2]))
+        self.wait()
+        self.play(TransformFromCopy(eq_group[2], eq_group[3]))
+        self.wait()
+
+        # Outro
+        final_text = Tex("Thank you for watching!", color=YELLOW_B)
+        self.play(
+            Write(final_text),
+            ShrinkToCenter(VGroup(problem_group, eq_group, annot_group)),
+        )
+        self.wait()
+        self.play(
+            logo_corner.animate.move_to(ORIGIN).scale(3),
+            final_text.animate.to_edge(DOWN).set_color(WHITE).scale(1.3),
+        )
+        self.wait()
+        self.play(FadeOut(final_text, logo_corner))
+        # self.wait()
