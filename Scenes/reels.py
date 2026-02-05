@@ -72,7 +72,7 @@ class Reel(Scene):
         annot_group = VGroup(annot_1, annot_2, annot_3)
         self.play(Write(problem_group[0]))
         self.wait(2)
-        self.play(problem_group.animate.to_edge(UP).scale(1.1).set_color(YELLOW_C))
+        self.play(problem_group.animate.to_edge(UP).scale(1.1).set_color(YELLOW_B))
         self.wait(2)
         self.play(Write(eq_group[0]))
         self.wait(2)
