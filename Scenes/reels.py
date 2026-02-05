@@ -129,8 +129,9 @@ class Thumbnail(Scene):
         )
 
         subtitle = (
-            Text(r"of p and q", font="Roboto", weight=BOLD, color=WHITE)
-            .scale(1.5)
+            Tex(r"\textbf{of} $p$ \textbf{and} $q$")
+            .set_color(WHITE)
+            .scale(2)
             .next_to(title, DOWN, buff=0.3)
         )
 
