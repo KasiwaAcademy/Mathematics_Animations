@@ -31,7 +31,7 @@ class Reel(Scene):
                 MathTex(r"\frac{32^4 \times 625^3}{8^6 \times 25^4} = 2^p5^q"),
                 MathTex(r"\frac{2^{20} \times 5^{12}}{2^{18} \times 25^4} = 2^p5^q"),
                 MathTex(r"2", r"^2", r"\times 5", r"^4", r"= 2", r"^p", r"5", r"^q"),
-                Tex(r"$p=2$", r" and", r"$q=4$"),
+                Tex(r"$p=2$", r" and ", r"$q=4$"),
             )
             .arrange(DOWN, buff=0.5, aligned_edge=LEFT)
             .shift(RIGHT * 3)
@@ -42,6 +42,9 @@ class Reel(Scene):
         eq_group[2][7].set_color(PURE_GREEN)
         eq_group[3][0].set_color(PURE_BLUE)
         eq_group[3][2].set_color(PURE_GREEN)
+
+        box_1 = SurroundingRectangle(eq_group[3][0], color=PURE_BLUE, buff=0.1)
+        box_2 = SurroundingRectangle(eq_group[3][2], color=PURE_GREEN, buff=0.1)
         annot_1 = (
             Tex(
                 r"Write each element as a \\"
@@ -84,13 +87,19 @@ class Reel(Scene):
         self.play(Write(annot_group[2]))
         self.wait()
         self.play(TransformFromCopy(eq_group[2], eq_group[3]))
-        self.wait()
+        self.wait(2)
+        self.play(
+            Indicate(eq_group[3][0], color=PURE_BLUE),
+            Indicate(eq_group[3][2], color=PURE_GREEN),
+            FadeIn(box_1, box_2),
+        )
+        self.wait(3)
 
         # Outro
         final_text = Tex("Thank you for watching!", color=YELLOW_B)
         self.play(
             Write(final_text),
-            ShrinkToCenter(VGroup(problem_group, eq_group, annot_group)),
+            ShrinkToCenter(VGroup(problem_group, eq_group, annot_group, box_1, box_2)),
         )
         self.wait()
         self.play(
