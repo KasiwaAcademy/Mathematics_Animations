@@ -109,3 +109,37 @@ class Reel(Scene):
         self.wait()
         self.play(FadeOut(final_text, logo_corner))
         # self.wait()
+
+
+# Thumbnail
+class Thumbnail(Scene):
+    def construct(self):
+        # Add background image
+        background = ImageMobject("../Images/chalk_board.jpg")
+        background.set_z_index(-1)
+        background.scale_to_fit_height(config.frame_height)
+        background.scale_to_fit_width(config.frame_width)
+        self.add(background)
+
+        # Title text
+        title = (
+            Text("Find the values", font="Roboto", weight=BOLD, color=YELLOW)
+            .scale(1.5)
+            .to_edge(UP)
+        )
+
+        subtitle = (
+            Text(r"of p and q", font="Roboto", weight=BOLD, color=WHITE)
+            .scale(1.5)
+            .next_to(title, DOWN, buff=0.3)
+        )
+
+        # Formula
+        formula = (
+            MathTex(r"\frac{32^4 \times 625^3}{8^6 \times 25^4} = 2^p5^q", color=WHITE)
+            .scale(1.7)
+            .next_to(subtitle, DOWN, buff=1)
+        )
+
+        # Add everything
+        self.add(title, subtitle, formula)
