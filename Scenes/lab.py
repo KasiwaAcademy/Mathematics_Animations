@@ -60,3 +60,82 @@ class LabTest(Scene):
         self.wait()
         self.play(ShrinkToCenter(VGroup(problem, eq_group, box)))
         self.wait()
+
+
+class ExpandUsingTable(Scene):
+    def construct(self):
+        # -------------------------
+        # 1. Title
+        # -------------------------
+        title = Text("Expand using Table Method", font_size=40)
+        title.to_edge(UP)
+        self.play(Write(title))
+
+        # -------------------------
+        # 2. Expression
+        # -------------------------
+        expr = MathTex(r"(2x - 3)(3x - 6)")
+        expr.scale(1.2)
+        expr.next_to(title, DOWN, buff=0.5)
+
+        self.play(Write(expr))
+        self.wait(1)
+
+        # -------------------------
+        # 3. Create Table Grid
+        # -------------------------
+        table = Table(
+            [["", ""], ["", ""]],
+            row_labels=[MathTex("3x"), MathTex("-6")],
+            col_labels=[MathTex("2x"), MathTex("-3")],
+            include_outer_lines=True,
+        )
+
+        table.scale(0.75)
+        table.next_to(expr, DOWN, buff=0.5)
+
+        self.play(FadeIn(table))
+        self.wait(1)
+
+        # -------------------------
+        # 4. Fill Each Cell One by One
+        # -------------------------
+
+        cell_1 = MathTex("6x^2").move_to(table.get_entries((2, 2)))
+        cell_2 = MathTex("-9x").move_to(table.get_entries((2, 3)))
+        cell_3 = MathTex("-12x").move_to(table.get_entries((3, 2)))
+        cell = table.get_entries((3, 3))
+        cell_4 = MathTex("18").move_to(cell)
+
+        # Animate first cell
+        self.play(Transform(table.get_entries((2, 2)), cell_1))
+        self.wait(1)
+
+        # Second cell
+        self.play(Transform(table.get_entries((2, 3)), cell_2))
+        self.wait(1)
+
+        # Third cell
+        self.play(Transform(table.get_entries((3, 2)), cell_3))
+        self.wait(1)
+
+        # Fourth cell
+        self.play(Transform(table.get_entries((3, 3)), cell_4))
+        self.wait(1)
+
+        # -------------------------
+        # 5. Combine All Terms
+        # -------------------------
+        expanded = MathTex("= 6x^2 - 9x - 12x + 18")
+        expanded.next_to(table, DOWN, buff=0.5)
+
+        self.play(Write(expanded))
+        self.wait(1)
+
+        simplified = MathTex("= 6x^2 - 21x + 18")
+        simplified.next_to(expanded, DOWN, buff=0.5)
+
+        self.play(Write(simplified))
+        self.wait(2)
+
+        self.play(FadeOut(*self.mobjects))
