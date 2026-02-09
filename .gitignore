@@ -224,3 +224,4 @@ pyproject.toml
 work_shop.py
 lazygit
 *.ipynb
+lab.py
