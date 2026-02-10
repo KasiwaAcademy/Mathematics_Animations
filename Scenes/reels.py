@@ -1,4 +1,5 @@
 from manim import *
+from manim.utils.color.X11 import BROWN
 
 config.pixel_width = 1920
 config.pixel_height = 1080
@@ -100,6 +101,133 @@ class Reel(Scene):
         self.play(
             Write(final_text),
             ShrinkToCenter(VGroup(problem_group, eq_group, annot_group, box_1, box_2)),
+        )
+        self.wait()
+        self.play(
+            logo_corner.animate.move_to(ORIGIN).scale(3),
+            final_text.animate.to_edge(DOWN).set_color(WHITE).scale(1.3),
+        )
+        self.wait()
+        self.play(FadeOut(final_text, logo_corner))
+        # self.wait()
+
+
+class ExpandExpression(Scene):
+    def construct(self):
+        # Create a custom Latex template that includes the cancel package
+        my_template = TexTemplate()
+        my_template.add_to_preamble(r"\usepackage{xcolor}")
+        my_template.add_to_preamble(r"\usepackage{cancel}")
+        my_template.add_to_preamble(r"\renewcommand{\CancelColor}{\color{red}}")
+
+        # Load and position logo image
+        logo = ImageMobject("../Images/logo.png")
+        logo_corner = logo.scale(0.15)
+        logo_corner.to_corner(DR, buff=-0.2)
+        self.add(logo_corner)
+
+        # Problem Statement
+        problem = (
+            Tex(r"Expand and Simplify $(4x - 3)(4x + 3)$")
+            .to_edge(UP)
+            .scale(1.2)
+            .set_color(YELLOW_B)
+        )
+        underline = Underline(problem)
+        problem_group = VGroup(problem, underline)
+        problem_statement = Tex(
+            r"Expand and Simplify $\mathbf{(4x-3)(4x+3)}$ \\ using the multiplication grid."
+        )
+        eq_1 = MathTex(r"(4x - 3)", r"(4x + 3)").next_to(problem_group, DOWN, buff=0.2)
+        eq_1[0].set_color(BLUE)
+        eq_1[1].set_color(RED)
+        table_1 = MathTable(
+            [[r"4x \times 4x", r"4x \times -3"], [r"3 \times 4x", r"3 \times -3"]],
+            include_outer_lines=True,
+        )
+        table_2 = MathTable(
+            [[r"16x^2", r"-12x"], [r"12x", r"-9"]],
+            include_outer_lines=True,
+        )
+        table_1.get_entries((1, 1)).set_opacity(0)
+        table_1.get_entries((1, 2)).set_opacity(0)
+        table_1.get_entries((2, 1)).set_opacity(0)
+        table_1.get_entries((2, 2)).set_opacity(0)
+
+        labels_1 = Group(
+            MathTex(r"4x")
+            .next_to(table_1.get_cell((1, 1)), UP, buff=0.25)
+            .set_color(BLUE),
+            MathTex(r"-3")
+            .next_to(table_1.get_cell((1, 2)), UP, buff=0.25)
+            .set_color(BLUE),
+            MathTex(r"4x")
+            .next_to(table_1.get_cell((1, 1)), LEFT, buff=0.25)
+            .set_color(BROWN),
+            MathTex(r"3")
+            .next_to(table_1.get_cell((2, 1)), LEFT, buff=0.25)
+            .set_color(BROWN),
+        )
+        eq_group = (
+            VGroup(
+                MathTex(r"16x^2", r" - 12x", r" + 12x", r" - 9"),
+                MathTex(r"16x^2 - 9"),
+            )
+            .arrange(DOWN, buff=0.5)
+            .next_to(table_1, DOWN, buff=0.5)
+        )
+        box = SurroundingRectangle(
+            eq_group[1], buff=0.25, color=PURE_GREEN, corner_radius=0.1
+        )
+
+        self.play(Write(problem_statement))
+        self.wait()
+        self.play(Transform(problem_statement, problem_group))
+        self.wait()
+        self.play(Write(eq_1))
+        self.wait()
+        self.play(FadeIn(table_1, labels_1))
+        self.wait(1.5)
+
+        self.play(table_1.get_entries((1, 1)).animate.set_opacity(1))
+        self.wait(1.5)
+        self.play(Transform(table_1.get_entries((1, 1)), table_2.get_entries((1, 1))))
+        self.wait(1.5)
+        self.play(TransformFromCopy(table_1.get_entries((1, 1)), eq_group[0][0]))
+        self.wait(1.5)
+
+        self.play(table_1.get_entries((1, 2)).animate.set_opacity(1))
+        self.wait(1.5)
+        self.play(Transform(table_1.get_entries((1, 2)), table_2.get_entries((1, 2))))
+        self.wait(1.5)
+        self.play(TransformFromCopy(table_1.get_entries((1, 2)), eq_group[0][1]))
+        self.wait(1.5)
+
+        self.play(table_1.get_entries((2, 1)).animate.set_opacity(1))
+        self.wait(1.5)
+        self.play(Transform(table_1.get_entries((2, 1)), table_2.get_entries((2, 1))))
+        self.wait(1.5)
+        self.play(TransformFromCopy(table_1.get_entries((2, 1)), eq_group[0][2]))
+        self.wait(1.5)
+
+        self.play(table_1.get_entries((2, 2)).animate.set_opacity(1))
+        self.wait(1.5)
+        self.play(Transform(table_1.get_entries((2, 2)), table_2.get_entries((2, 2))))
+        self.wait(1.5)
+        self.play(TransformFromCopy(table_1.get_entries((2, 2)), eq_group[0][3]))
+        self.wait(1.5)
+
+        self.play(TransformFromCopy(eq_group[0], eq_group[1]))
+        self.wait(1.5)
+        self.play(Indicate(eq_group[1]), FadeIn(box))
+        self.wait(1.5)
+        # Outro
+        final_text = Tex("Thank you for watching!", color=YELLOW_B)
+        self.play(
+            ShrinkToCenter(
+                Group(problem_statement, table_1, labels_1, eq_group, box, eq_1)
+            ),
+            Write(final_text),
         )
         self.wait()
         self.play(
