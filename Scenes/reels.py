@@ -186,41 +186,45 @@ class ExpandExpression(Scene):
         self.wait()
         self.play(Write(eq_1))
         self.wait()
-        self.play(FadeIn(table_1, labels_1))
-        self.wait(1.5)
+        self.play(FadeIn(table_1))
+        self.wait()
+        self.play(TransformFromCopy(eq_1[0], labels_1[:2]))
+        self.wait()
+        self.play(TransformFromCopy(eq_1[1], labels_1[-2:]))
+        self.wait()
 
         self.play(table_1.get_entries((1, 1)).animate.set_opacity(1))
-        self.wait(1.5)
+        self.wait()
         self.play(Transform(table_1.get_entries((1, 1)), table_2.get_entries((1, 1))))
-        self.wait(1.5)
+        self.wait()
         self.play(TransformFromCopy(table_1.get_entries((1, 1)), eq_group[0][0]))
-        self.wait(1.5)
+        self.wait()
 
         self.play(table_1.get_entries((1, 2)).animate.set_opacity(1))
-        self.wait(1.5)
+        self.wait()
         self.play(Transform(table_1.get_entries((1, 2)), table_2.get_entries((1, 2))))
-        self.wait(1.5)
+        self.wait()
         self.play(TransformFromCopy(table_1.get_entries((1, 2)), eq_group[0][1]))
-        self.wait(1.5)
+        self.wait()
 
         self.play(table_1.get_entries((2, 1)).animate.set_opacity(1))
-        self.wait(1.5)
+        self.wait()
         self.play(Transform(table_1.get_entries((2, 1)), table_2.get_entries((2, 1))))
-        self.wait(1.5)
+        self.wait()
         self.play(TransformFromCopy(table_1.get_entries((2, 1)), eq_group[0][2]))
-        self.wait(1.5)
+        self.wait()
 
         self.play(table_1.get_entries((2, 2)).animate.set_opacity(1))
-        self.wait(1.5)
+        self.wait()
         self.play(Transform(table_1.get_entries((2, 2)), table_2.get_entries((2, 2))))
-        self.wait(1.5)
+        self.wait()
         self.play(TransformFromCopy(table_1.get_entries((2, 2)), eq_group[0][3]))
-        self.wait(1.5)
+        self.wait()
 
         self.play(TransformFromCopy(eq_group[0], eq_group[1]))
-        self.wait(1.5)
+        self.wait()
         self.play(Indicate(eq_group[1]), FadeIn(box))
-        self.wait(1.5)
+        self.wait(3)
         # Outro
         final_text = Tex("Thank you for watching!", color=YELLOW_B)
         self.play(
@@ -251,21 +255,20 @@ class Thumbnail(Scene):
 
         # Title text
         title = (
-            Text("Find the values", font="Roboto", weight=BOLD, color=YELLOW)
+            Text("Expand and Simplify", font="Roboto", weight=BOLD, color=YELLOW)
             .scale(1.5)
             .to_edge(UP)
         )
-
+        # Subtitle
         subtitle = (
-            Tex(r"\textbf{of} $p$ \textbf{and} $q$")
-            .set_color(WHITE)
-            .scale(2)
+            Text("Using multiplication Grid", font="Roboto", weight=BOLD, color=WHITE)
+            .scale(1.5)
             .next_to(title, DOWN, buff=0.3)
         )
 
         # Formula
         formula = (
-            MathTex(r"\frac{32^4 \times 625^3}{8^6 \times 25^4} = 2^p5^q", color=WHITE)
+            MathTex(r"(4x - 3)(4x + 3)", color=WHITE)
             .scale(1.7)
             .next_to(subtitle, DOWN, buff=1)
         )
